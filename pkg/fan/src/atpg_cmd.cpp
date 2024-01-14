@@ -1254,6 +1254,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	}
 	else
 	{
+		std::cout << "#  22222222222222\n";
 		fanMgr_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
 	}
 

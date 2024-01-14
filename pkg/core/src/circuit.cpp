@@ -6,6 +6,7 @@
 // **************************************************************************
 
 #include "circuit.h"
+#include<omp.h>
 
 using namespace IntfNs;
 using namespace CoreNs;
@@ -108,7 +109,7 @@ void Circuit::calculateNumGate()
 		if (top->getPort(i)->type_ == Port::INPUT) // Input port
 		{
 			if (strcmp(top->getPort(i)->name_, "CK") && strcmp(top->getPort(i)->name_, "test_si") && strcmp(top->getPort(i)->name_, "test_se")) // Not clock or test input
-			{
+			{	
 				portIndexToGateIndex_[i] = numPI_;
 				++numGate_;
 				++numPI_;

@@ -15,6 +15,7 @@
 #include <cstdlib>		 // getting environment variable
 #include <cstring>
 #include <iomanip>
+#include <cstring>
 
 #include "ascii.h"
 #include "vt100.h"
@@ -835,7 +836,6 @@ CmdMgr::Result CmdMgr::exec(const std::string &cmdStr)
 	{
 		resetStdout(stdoutFd, stdoutPos);
 	}
-
 	return res;
 }
 

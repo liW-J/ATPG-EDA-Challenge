@@ -90,10 +90,10 @@ INCLOC       = -I$(SRCDIR) -I$(G_INCDIR) -I$(LIBDIR)/$(MODE)/$(LNYDIR) \
                $(addprefix -I,$(EXTINCLOC))
 
 ifeq "$(MODE)" "$(DBGDIR)"
-    CFLAGS   = -Wall -g -D DEBUG
+    CFLAGS   = -fopenmp -Wall -g -D DEBUG
     LIBLOC   = -L$(G_DBGDIR) $(addprefix -L,$(EXTDBGLIBLOC))
 else
-    CFLAGS   = -Wall -O3 -Wno-stringop-truncation -Wno-restrict -Wno-format-overflow
+    CFLAGS   = -fopenmp -Wall -O3 -Wno-stringop-truncation -Wno-restrict -Wno-format-overflow
     LIBLOC   = -L$(G_OPTDIR) $(addprefix -L,$(EXTOPTLIBLOC))
 endif
 

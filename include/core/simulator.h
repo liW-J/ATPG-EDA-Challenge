@@ -11,6 +11,7 @@
 #include <array>
 #include <stack>
 #include <vector>
+#include <omp.h>
 
 #include "pattern.h"
 #include "fault.h"
@@ -137,11 +138,18 @@ namespace CoreNs
 	// **************************************************************************
 	inline void Simulator::goodSimCopyGoodToFault()
 	{
-		for (int gateID = 0; gateID < pCircuit_->totalGate_; ++gateID)
+		// #pragma omp parallel for schedule(dynamic) 
+		#pragma omp parallel 
 		{
-			goodValueEvaluation(gateID);
-			pCircuit_->circuitGates_[gateID].faultSimLow_ = pCircuit_->circuitGates_[gateID].goodSimLow_;
-			pCircuit_->circuitGates_[gateID].faultSimHigh_ = pCircuit_->circuitGates_[gateID].goodSimHigh_;
+			#pragma omp single
+			{
+				for (int gateID = 0; gateID < pCircuit_->totalGate_; gateID++)
+				{
+					goodValueEvaluation(gateID);
+					pCircuit_->circuitGates_[gateID].faultSimLow_ = pCircuit_->circuitGates_[gateID].goodSimLow_;
+					pCircuit_->circuitGates_[gateID].faultSimHigh_ = pCircuit_->circuitGates_[gateID].goodSimHigh_;
+				}
+			}
 		}
 	}
 
@@ -278,7 +286,7 @@ namespace CoreNs
 				break;
 			default:
 				break;
-		}
+		}	
 	}
 
 	// **************************************************************************

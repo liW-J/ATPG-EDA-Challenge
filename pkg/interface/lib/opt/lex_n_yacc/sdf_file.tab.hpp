@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -30,6 +31,10 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
 #ifndef YY_SDF_FILE_LIB_OPT_LEX_N_YACC_SDF_FILE_TAB_HPP_INCLUDED
 # define YY_SDF_FILE_LIB_OPT_LEX_N_YACC_SDF_FILE_TAB_HPP_INCLUDED
 /* Debug traces.  */
@@ -40,96 +45,100 @@
 extern int sdf_filedebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    DELAYFILE = 258,
-    SDFVERSION = 259,
-    DESIGN = 260,
-    DATE = 261,
-    VENDOR = 262,
-    PROGRAM = 263,
-    VERSION = 264,
-    DIVIDER = 265,
-    VOLTAGE = 266,
-    PROCESS = 267,
-    TEMPERATURE = 268,
-    TIMESCALE = 269,
-    CELL = 270,
-    CELLTYPE = 271,
-    INSTANCE = 272,
-    DELAY = 273,
-    TIMINGCHECK = 274,
-    TIMINGENV = 275,
-    PATHPULSE = 276,
-    PATHPULSEPERCENT = 277,
-    ABSOLUTE = 278,
-    INCREMENT = 279,
-    IOPATH = 280,
-    RETAIN = 281,
-    COND = 282,
-    SCOND = 283,
-    CCOND = 284,
-    CONDELSE = 285,
-    PORT = 286,
-    INTERCONNECT = 287,
-    DEVICE = 288,
-    SETUP = 289,
-    HOLD = 290,
-    SETUPHOLD = 291,
-    RECOVERY = 292,
-    REMOVAL = 293,
-    RECREM = 294,
-    SKEW = 295,
-    WIDTH = 296,
-    PERIOD = 297,
-    NOCHANGE = 298,
-    NAME = 299,
-    EXCEPTION = 300,
-    PATHCONSTRAINT = 301,
-    PERIODCONSTRAINT = 302,
-    SUM = 303,
-    DIFF = 304,
-    SKEWCONSTRAINT = 305,
-    ARRIVAL = 306,
-    DEPARTURE = 307,
-    SLACK = 308,
-    WAVEFORM = 309,
-    POSEDGE = 310,
-    NEGEDGE = 311,
-    CASE_EQU = 312,
-    CASE_INEQU = 313,
-    EQU = 314,
-    INEQU = 315,
-    L_AND = 316,
-    L_OR = 317,
-    LESS_OR_EQU = 318,
-    GREATER_OR_EQU = 319,
-    RIGHT_SHIFT = 320,
-    LEFT_SHIFT = 321,
-    U_NAND = 322,
-    U_NOR = 323,
-    U_XNOR = 324,
-    U_XNOR_ALT = 325,
-    BIT_CONST = 326,
-    ONE_CONST = 327,
-    ZERO_CONST = 328,
-    EDGE = 329,
-    PATH = 330,
-    IDENTIFIER = 331,
-    QSTRING = 332,
-    NUMBER = 333
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    DELAYFILE = 258,               /* DELAYFILE  */
+    SDFVERSION = 259,              /* SDFVERSION  */
+    DESIGN = 260,                  /* DESIGN  */
+    DATE = 261,                    /* DATE  */
+    VENDOR = 262,                  /* VENDOR  */
+    PROGRAM = 263,                 /* PROGRAM  */
+    VERSION = 264,                 /* VERSION  */
+    DIVIDER = 265,                 /* DIVIDER  */
+    VOLTAGE = 266,                 /* VOLTAGE  */
+    PROCESS = 267,                 /* PROCESS  */
+    TEMPERATURE = 268,             /* TEMPERATURE  */
+    TIMESCALE = 269,               /* TIMESCALE  */
+    CELL = 270,                    /* CELL  */
+    CELLTYPE = 271,                /* CELLTYPE  */
+    INSTANCE = 272,                /* INSTANCE  */
+    DELAY = 273,                   /* DELAY  */
+    TIMINGCHECK = 274,             /* TIMINGCHECK  */
+    TIMINGENV = 275,               /* TIMINGENV  */
+    PATHPULSE = 276,               /* PATHPULSE  */
+    PATHPULSEPERCENT = 277,        /* PATHPULSEPERCENT  */
+    ABSOLUTE = 278,                /* ABSOLUTE  */
+    INCREMENT = 279,               /* INCREMENT  */
+    IOPATH = 280,                  /* IOPATH  */
+    RETAIN = 281,                  /* RETAIN  */
+    COND = 282,                    /* COND  */
+    SCOND = 283,                   /* SCOND  */
+    CCOND = 284,                   /* CCOND  */
+    CONDELSE = 285,                /* CONDELSE  */
+    PORT = 286,                    /* PORT  */
+    INTERCONNECT = 287,            /* INTERCONNECT  */
+    DEVICE = 288,                  /* DEVICE  */
+    SETUP = 289,                   /* SETUP  */
+    HOLD = 290,                    /* HOLD  */
+    SETUPHOLD = 291,               /* SETUPHOLD  */
+    RECOVERY = 292,                /* RECOVERY  */
+    REMOVAL = 293,                 /* REMOVAL  */
+    RECREM = 294,                  /* RECREM  */
+    SKEW = 295,                    /* SKEW  */
+    WIDTH = 296,                   /* WIDTH  */
+    PERIOD = 297,                  /* PERIOD  */
+    NOCHANGE = 298,                /* NOCHANGE  */
+    NAME = 299,                    /* NAME  */
+    EXCEPTION = 300,               /* EXCEPTION  */
+    PATHCONSTRAINT = 301,          /* PATHCONSTRAINT  */
+    PERIODCONSTRAINT = 302,        /* PERIODCONSTRAINT  */
+    SUM = 303,                     /* SUM  */
+    DIFF = 304,                    /* DIFF  */
+    SKEWCONSTRAINT = 305,          /* SKEWCONSTRAINT  */
+    ARRIVAL = 306,                 /* ARRIVAL  */
+    DEPARTURE = 307,               /* DEPARTURE  */
+    SLACK = 308,                   /* SLACK  */
+    WAVEFORM = 309,                /* WAVEFORM  */
+    POSEDGE = 310,                 /* POSEDGE  */
+    NEGEDGE = 311,                 /* NEGEDGE  */
+    CASE_EQU = 312,                /* CASE_EQU  */
+    CASE_INEQU = 313,              /* CASE_INEQU  */
+    EQU = 314,                     /* EQU  */
+    INEQU = 315,                   /* INEQU  */
+    L_AND = 316,                   /* L_AND  */
+    L_OR = 317,                    /* L_OR  */
+    LESS_OR_EQU = 318,             /* LESS_OR_EQU  */
+    GREATER_OR_EQU = 319,          /* GREATER_OR_EQU  */
+    RIGHT_SHIFT = 320,             /* RIGHT_SHIFT  */
+    LEFT_SHIFT = 321,              /* LEFT_SHIFT  */
+    U_NAND = 322,                  /* U_NAND  */
+    U_NOR = 323,                   /* U_NOR  */
+    U_XNOR = 324,                  /* U_XNOR  */
+    U_XNOR_ALT = 325,              /* U_XNOR_ALT  */
+    BIT_CONST = 326,               /* BIT_CONST  */
+    ONE_CONST = 327,               /* ONE_CONST  */
+    ZERO_CONST = 328,              /* ZERO_CONST  */
+    EDGE = 329,                    /* EDGE  */
+    PATH = 330,                    /* PATH  */
+    IDENTIFIER = 331,              /* IDENTIFIER  */
+    QSTRING = 332,                 /* QSTRING  */
+    NUMBER = 333                   /* NUMBER  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
 union YYSTYPE
 {
-#line 30 "src/sdf_file.y" /* yacc.c:1909  */
+#line 30 "src/sdf_file.y"
 
     float                     yfloat;
     char                      ychar[IntfNs::NAME_LEN];
@@ -141,9 +150,9 @@ union YYSTYPE
     IntfNs::SdfIoPath         yioPath;
     IntfNs::SdfPortSpec       yportSpec;
 
-#line 145 "lib/opt/lex_n_yacc/sdf_file.tab.hpp" /* yacc.c:1909  */
-};
+#line 154 "lib/opt/lex_n_yacc/sdf_file.tab.hpp"
 
+};
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -152,6 +161,8 @@ typedef union YYSTYPE YYSTYPE;
 
 extern YYSTYPE sdf_filelval;
 
+
 int sdf_fileparse (void* param);
+
 
 #endif /* !YY_SDF_FILE_LIB_OPT_LEX_N_YACC_SDF_FILE_TAB_HPP_INCLUDED  */
