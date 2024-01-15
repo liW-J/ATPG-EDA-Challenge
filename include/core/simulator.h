@@ -138,13 +138,19 @@ namespace CoreNs
 	// **************************************************************************
 	inline void Simulator::goodSimCopyGoodToFault()
 	{
-		// #pragma omp parallel for schedule(dynamic) 
 		for (int gateID = 0; gateID < pCircuit_->totalGate_; gateID++)
 		{
 			goodValueEvaluation(gateID);
+		}
+
+		#pragma omp parallel for 
+		for (int gateID = 0; gateID < pCircuit_->totalGate_; gateID++)
+		{
 			pCircuit_->circuitGates_[gateID].faultSimLow_ = pCircuit_->circuitGates_[gateID].goodSimLow_;
 			pCircuit_->circuitGates_[gateID].faultSimHigh_ = pCircuit_->circuitGates_[gateID].goodSimHigh_;
 		}
+		
+		#pragma omp barrier
 	}
 
 	// **************************************************************************
@@ -170,14 +176,15 @@ namespace CoreNs
 		const int fanin3 = pCircuit_->circuitGates_[gateID].numFI_ > 2 ? pCircuit_->circuitGates_[gateID].faninVector_[2] : 0;
 		const int fanin4 = pCircuit_->circuitGates_[gateID].numFI_ > 3 ? pCircuit_->circuitGates_[gateID].faninVector_[3] : 0;
 		// Read the value of fanins.
-		const ParallelValue &l1 = pCircuit_->circuitGates_[fanin1].goodSimLow_;
-		const ParallelValue &h1 = pCircuit_->circuitGates_[fanin1].goodSimHigh_;
-		const ParallelValue &l2 = pCircuit_->circuitGates_[fanin2].goodSimLow_;
-		const ParallelValue &h2 = pCircuit_->circuitGates_[fanin2].goodSimHigh_;
-		const ParallelValue &l3 = pCircuit_->circuitGates_[fanin3].goodSimLow_;
-		const ParallelValue &h3 = pCircuit_->circuitGates_[fanin3].goodSimHigh_;
-		const ParallelValue &l4 = pCircuit_->circuitGates_[fanin4].goodSimLow_;
-		const ParallelValue &h4 = pCircuit_->circuitGates_[fanin4].goodSimHigh_;
+		const ParallelValue l1 = pCircuit_->circuitGates_[fanin1].goodSimLow_;
+		const ParallelValue h1 = pCircuit_->circuitGates_[fanin1].goodSimHigh_;
+		const ParallelValue l2 = pCircuit_->circuitGates_[fanin2].goodSimLow_;
+		const ParallelValue h2 = pCircuit_->circuitGates_[fanin2].goodSimHigh_;
+		const ParallelValue l3 = pCircuit_->circuitGates_[fanin3].goodSimLow_;
+		const ParallelValue h3 = pCircuit_->circuitGates_[fanin3].goodSimHigh_;
+		const ParallelValue l4 = pCircuit_->circuitGates_[fanin4].goodSimLow_;
+		const ParallelValue h4 = pCircuit_->circuitGates_[fanin4].goodSimHigh_;
+
 		// Evaluate the good value of gate's output.
 		switch (pCircuit_->circuitGates_[gateID].gateType_)
 		{

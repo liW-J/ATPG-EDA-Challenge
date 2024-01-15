@@ -1250,12 +1250,11 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 
 	if (optMgr_.isFlagSet("m") && optMgr_.getFlagVar("m") == "pf")
 	{
-		fanMgr_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
+		fanMgr_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
 	}
 	else
 	{
-		std::cout << "#  22222222222222\n";
-		fanMgr_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
+		fanMgr_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
 	}
 
 	TmStat stat;
