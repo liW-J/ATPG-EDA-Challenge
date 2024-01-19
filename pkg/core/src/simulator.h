@@ -138,19 +138,13 @@ namespace CoreNs
 	// **************************************************************************
 	inline void Simulator::goodSimCopyGoodToFault()
 	{
+		#pragma omp simd
 		for (int gateID = 0; gateID < pCircuit_->totalGate_; gateID++)
 		{
 			goodValueEvaluation(gateID);
-		}
-
-		#pragma omp parallel for 
-		for (int gateID = 0; gateID < pCircuit_->totalGate_; gateID++)
-		{
 			pCircuit_->circuitGates_[gateID].faultSimLow_ = pCircuit_->circuitGates_[gateID].goodSimLow_;
 			pCircuit_->circuitGates_[gateID].faultSimHigh_ = pCircuit_->circuitGates_[gateID].goodSimHigh_;
 		}
-		
-		#pragma omp barrier
 	}
 
 	// **************************************************************************
