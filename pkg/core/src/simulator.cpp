@@ -278,8 +278,10 @@ void Simulator::parallelPatternFaultSim(FaultPtrList &remainingFaults)
 // **************************************************************************
 void Simulator::parallelFaultReset()
 {
+	#pragma omp parallel for
 	for (int i = 0; i < numRecover_; ++i)
 	{
+		printf("num = %d", omp_get_num_threads());
 		pCircuit_->circuitGates_[recoverGates_[i]].faultSimLow_ = pCircuit_->circuitGates_[recoverGates_[i]].goodSimLow_;
 		pCircuit_->circuitGates_[recoverGates_[i]].faultSimHigh_ = pCircuit_->circuitGates_[recoverGates_[i]].goodSimHigh_;
 	}
