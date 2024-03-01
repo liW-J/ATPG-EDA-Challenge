@@ -767,11 +767,11 @@ namespace CoreNs
 		int offset = pCircuit_->numGate_ - pCircuit_->numPO_ - pCircuit_->numPPI_;
 		for (int i = 0; i < pCircuit_->numPO_; ++i)
 		{
-			if (pCircuit_->circuitGates_[offset + i].goodSimLow_ == PARA_H)
+			if (pCircuit_->goodSimLow_[offset + i] == PARA_H)
 			{
 				pattern.PO1_[i] = L;
 			}
-			else if (pCircuit_->circuitGates_[offset + i].goodSimHigh_ == PARA_H)
+			else if (pCircuit_->goodSimHigh_[offset + i] == PARA_H)
 			{
 				pattern.PO1_[i] = H;
 			}
@@ -785,11 +785,11 @@ namespace CoreNs
 		{
 			for (int i = 0; i < pCircuit_->numPO_; ++i)
 			{
-				if (pCircuit_->circuitGates_[offset + i + pCircuit_->numGate_].goodSimLow_ == PARA_H)
+				if (pCircuit_->goodSimLow_[offset + i + pCircuit_->numGate_] == PARA_H)
 				{
 					pattern.PO2_[i] = L;
 				}
-				else if (pCircuit_->circuitGates_[offset + i + pCircuit_->numGate_].goodSimHigh_ == PARA_H)
+				else if (pCircuit_->goodSimHigh_[offset + i + pCircuit_->numGate_] == PARA_H)
 				{
 					pattern.PO2_[i] = H;
 				}
@@ -808,11 +808,11 @@ namespace CoreNs
 
 		for (int i = 0; i < pCircuit_->numPPI_; ++i)
 		{
-			if (pCircuit_->circuitGates_[offset + i].goodSimLow_ == PARA_H)
+			if (pCircuit_->goodSimLow_[offset + i] == PARA_H)
 			{
 				pattern.PPO_[i] = L;
 			}
-			else if (pCircuit_->circuitGates_[offset + i].goodSimHigh_ == PARA_H)
+			else if (pCircuit_->goodSimHigh_[offset + i] == PARA_H)
 			{
 				pattern.PPO_[i] = H;
 			}

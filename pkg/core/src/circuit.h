@@ -58,6 +58,11 @@ namespace CoreNs
 		std::vector<int> cellIndexToGateIndex_; // Map cells in the netlist to gates.
 		std::vector<int> portIndexToGateIndex_; // Map ports in the netlist to gates.
 
+		std::vector<ParallelValue> goodSimLow_;	 // good low
+		std::vector<ParallelValue> goodSimHigh_;	 // good high
+		std::vector<ParallelValue> faultSimLow_;	 // faulty low
+		std::vector<ParallelValue> faultSimHigh_; // faulty high
+
 	protected:
 		// For circuit building.
 		void mapNetlistToCircuit();
@@ -73,6 +78,7 @@ namespace CoreNs
 		                       const IntfNs::Pmt *const pmt);
 		void createCircuitPO();
 		void createCircuitPPO();
+		void createFaultVal();
 		void connectMultipleTimeFrame();
 		void assignMinLevelOfFanins();
 	};

@@ -1183,7 +1183,7 @@ bool RunLogicSimCmd::exec(const std::vector<std::string> &argv)
 	fanMgr_->tmusg.periodStart();
 	std::cout << "#  Performing logic simulation ...\n";
 
-	Simulator sim(fanMgr_->cir);
+	Simulator sim(*fanMgr_->cir);
 	sim.parallelPatternGoodSimWithAllPattern(fanMgr_->pcoll);
 
 	TmStat stat;
@@ -1242,7 +1242,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 
 	if (!fanMgr_->sim)
 	{
-		fanMgr_->sim = new Simulator(fanMgr_->cir);
+		fanMgr_->sim = new Simulator(*fanMgr_->cir);
 	}
 
 	std::cout << "#  Performing fault simulation ...\n";
@@ -1255,6 +1255,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	else
 	{
 		fanMgr_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
+		// fanMgr_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
 	}
 
 	TmStat stat;
@@ -1310,7 +1311,7 @@ bool RunAtpgCmd::exec(const std::vector<std::string> &argv)
 
 	if (!fanMgr_->sim)
 	{
-		fanMgr_->sim = new Simulator(fanMgr_->cir);
+		fanMgr_->sim = new Simulator(*fanMgr_->cir);
 	}
 
 	delete fanMgr_->atpg;

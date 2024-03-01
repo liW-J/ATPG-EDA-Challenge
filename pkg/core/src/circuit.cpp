@@ -54,9 +54,15 @@ bool Circuit::buildCircuit(Netlist *const pNetlist, const int &numFrame,
 
 	// Allocate gate memory.
 	circuitGates_.resize(numGate_ * numFrame);
+	goodSimLow_.resize(numGate_ * numFrame);
+	goodSimHigh_.resize(numGate_ * numFrame);
+	faultSimLow_.resize(numGate_ * numFrame);
+	faultSimHigh_.resize(numGate_ * numFrame);
+	
 
 	// Create gates in the circuit.
 	createCircuitGates();
+	createFaultVal();
 	connectMultipleTimeFrame(); // For multiple time frames.
 	assignMinLevelOfFanins();
 
@@ -441,6 +447,26 @@ void Circuit::createCircuitPmt(const int &gateID, const Cell *const cell,
 		}
 	}
 	circuitGates_[gateID].fanoutVector_.reserve(fanoutSize);
+}
+
+// **************************************************************************
+// Function   [ Circuit::createFaultVal ]
+// Commenter  [ PYH ]
+// Synopsis   [ usage: Create PI gates of the circuit.
+//              description:
+//              	Create PI gates of the circuit from the input ports in the netlist.
+//            ]
+// Date       [ Ver. 1.0 started 2013/08/11 last modified 2023/01/05 ]
+// **************************************************************************
+void Circuit::createFaultVal()
+{
+	for (int i = 0; i < numGate_; ++i)
+	{
+		goodSimLow_[i] = PARA_L;
+		goodSimHigh_[i]= PARA_L;
+		faultSimLow_[i] = PARA_L;
+		faultSimHigh_[i]= PARA_L;
+	}
 }
 
 // **************************************************************************
