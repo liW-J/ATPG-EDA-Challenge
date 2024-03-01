@@ -504,7 +504,7 @@ bool ReportFaultCmd::exec(const std::vector<std::string> &argv)
 		}
 		std::cout << "#    ";
 		switch ((*it)->faultType_)
-		{
+		{			
 			case Fault::SA0:
 				std::cout << "SA0     ";
 				break;

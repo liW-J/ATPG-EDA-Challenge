@@ -12,6 +12,7 @@
 #include <stack>
 #include <vector>
 #include <omp.h>
+#include <arm_neon.h>
 
 #include "pattern.h"
 #include "fault.h"
@@ -492,6 +493,10 @@ namespace CoreNs
 			{
 				for (int k = 1; k < pCircuit_->numFrame_; ++k)
 				{
+					//TODO :neon
+					// uint8x8_t res = vadd_u8(j,pCircuit_->numGate_ * k);
+					// pCircuit_->circuitGates_[res].goodSimLow_ = PARA_L;
+					// pCircuit_->circuitGates_[res].goodSimHigh_ = PARA_L;
 					pCircuit_->circuitGates_[j + pCircuit_->numGate_ * k].goodSimLow_ = PARA_L;
 					pCircuit_->circuitGates_[j + pCircuit_->numGate_ * k].goodSimHigh_ = PARA_L;
 					if (j == pCircuit_->numPI_)
