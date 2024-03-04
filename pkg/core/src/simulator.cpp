@@ -32,6 +32,7 @@ void Simulator::eventFaultSim()
 			events_[i].pop();
 			processed_[gateID] = 0;
 			faultyValueEvaluation(gateID);
+			
 			recoverGates_[numRecover_] = gateID; // Record gate's ID for later recovering.
 			++numRecover_;
 
@@ -436,16 +437,10 @@ void Simulator::parallelFaultCheckDetectionDropFaults(FaultPtrList &remainingFau
 // **************************************************************************
 void Simulator::parallelPatternReset()
 {
-	for (int i = 0; i < numRecover_; i+=2)
+	for (int i = 0; i < numRecover_; i++)
 	{
-		uint64x2_t temp1 = vld1q_u64(&pCircuit_.goodSimLow_[recoverGates_[i]]);
-		uint64x2_t temp2 = vld1q_u64(&pCircuit_.goodSimHigh_[recoverGates_[i]]);
-		vst1q_u64(&pCircuit_.faultSimLow_[recoverGates_[i]],temp1);
-		vst1q_u64(&pCircuit_.faultSimHigh_[recoverGates_[i]],temp2);
-
-
-		// pCircuit_.faultSimLow_[recoverGates_[i]] = pCircuit_.goodSimLow_[recoverGates_[i]];
-		// pCircuit_.faultSimHigh_[recoverGates_[i]] = pCircuit_.goodSimHigh_[recoverGates_[i]];
+		pCircuit_.faultSimLow_[recoverGates_[i]] = pCircuit_.goodSimLow_[recoverGates_[i]];
+		pCircuit_.faultSimHigh_[recoverGates_[i]] = pCircuit_.goodSimHigh_[recoverGates_[i]];
 	}
 	numRecover_ = 0;
 	std::fill(processed_.begin(), processed_.end(), 0);

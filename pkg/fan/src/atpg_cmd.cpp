@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <fstream>
+#include<thread>
 
 #include "atpg_cmd.h"
 #include "core/pattern_rw.h"
@@ -908,10 +909,10 @@ void ReportValueCmd::reportValue(const int &i) const
 	std::cout << "frame(" << g->frame_ << ")";
 	std::cout << "\n";
 	std::cout << "#    good:   ";
-	printSimulationValue(g->goodSimLow_, g->goodSimHigh_);
+	// printSimulationValue(g->goodSimLow_, g->goodSimHigh_);
 	std::cout << "\n";
 	std::cout << "#    faulty: ";
-	printSimulationValue(g->faultSimLow_, g->faultSimHigh_);
+	// printSimulationValue(g->faultSimLow_, g->faultSimHigh_);
 	std::cout << "\n\n";
 }
 
@@ -1255,7 +1256,6 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	else
 	{
 		fanMgr_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
-		// fanMgr_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_->pcoll, fanMgr_->fListExtract);
 	}
 
 	TmStat stat;
@@ -1264,6 +1264,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	std::cout << "    " << (double)stat.rTime / 1000000.0 << " s";
 	std::cout << "    " << (double)stat.vmSize / 1024.0 << " MB\n";
 	rtime = (double)stat.rTime / 1000000.0;
+
 
 	return true;
 }

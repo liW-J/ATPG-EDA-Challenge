@@ -69,10 +69,6 @@ namespace CoreNs
 
 		// values
 		Value atpgVal_;							 // single value for ATPG
-		ParallelValue goodSimLow_;	 // good low
-		ParallelValue goodSimHigh_;	 // good high
-		ParallelValue faultSimLow_;	 // faulty low
-		ParallelValue faultSimHigh_; // faulty high
 
 		// constraint, user can tie the gate to certain value
 		bool hasConstraint_;
@@ -105,10 +101,6 @@ namespace CoreNs
 		numFI_ = 0;
 		numFO_ = 0;
 		atpgVal_ = X;
-		goodSimLow_ = PARA_L;
-		goodSimHigh_ = PARA_L;
-		faultSimLow_ = PARA_L;
-		faultSimHigh_ = PARA_L;
 		hasConstraint_ = false;
 		constraint_ = PARA_L;
 		cc0_ = 0;
@@ -131,10 +123,6 @@ namespace CoreNs
 		numFI_ = 0;
 		fanoutVector_ = std::vector<int>(numFO);
 		atpgVal_ = X;
-		goodSimLow_ = PARA_L;
-		goodSimHigh_ = PARA_L;
-		faultSimLow_ = PARA_L;
-		faultSimHigh_ = PARA_L;
 		hasConstraint_ = false;
 		constraint_ = PARA_L;
 		cc0_ = 0;

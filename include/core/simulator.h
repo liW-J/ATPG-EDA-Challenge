@@ -142,8 +142,17 @@ namespace CoreNs
 		for (int gateID = 0; gateID < pCircuit_.totalGate_; gateID++)
 		{
 			goodValueEvaluation(gateID);
-			pCircuit_.faultSimLow_[gateID] = pCircuit_.goodSimLow_[gateID];
-			pCircuit_.faultSimHigh_[gateID] = pCircuit_.goodSimHigh_[gateID];
+			// pCircuit_.faultSimLow_[gateID] = pCircuit_.goodSimLow_[gateID];
+			// pCircuit_.faultSimHigh_[gateID] = pCircuit_.goodSimHigh_[gateID];
+		}
+
+
+		for (int gateID = 0; gateID < pCircuit_.totalGate_; gateID+=4)
+		{
+			uint64x2x2_t test1 = vld2q_u64(&pCircuit_.goodSimLow_[gateID]);
+			uint64x2x2_t test2 = vld2q_u64(&pCircuit_.goodSimHigh_[gateID]);
+			vst2q_u64(&pCircuit_.faultSimLow_[gateID],test1);
+			vst2q_u64(&pCircuit_.faultSimHigh_[gateID], test2);
 		}
 	}
 
@@ -440,7 +449,6 @@ namespace CoreNs
 	inline void Simulator::assignPatternToCircuitInputs(const Pattern &pattern)
 	{
 		// Set pattern : Apply the pattern to PIs.
-
 		for (int j = 0; j < pCircuit_.numPI_; ++j)
 		{
 			pCircuit_.goodSimLow_[j] = PARA_L;
@@ -482,6 +490,7 @@ namespace CoreNs
 		{
 			pCircuit_.goodSimLow_[j] = PARA_L;
 			pCircuit_.goodSimHigh_[j] = PARA_L;
+			
 			if (!pattern.PPI_.empty())
 			{
 				if (pattern.PPI_[j - pCircuit_.numPI_] == L)
@@ -494,7 +503,7 @@ namespace CoreNs
 				}
 			}
 			if (pCircuit_.timeFrameConnectType_ == Circuit::SHIFT && pCircuit_.numFrame_ > 1)
-			{
+			{	
 				for (int k = 1; k < pCircuit_.numFrame_; ++k)
 				{
 					pCircuit_.goodSimLow_[j + pCircuit_.numGate_ * k] = PARA_L;

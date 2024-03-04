@@ -6,6 +6,7 @@
 // **************************************************************************
 
 #include "circuit.h"
+#include <unistd.h>
 #include<omp.h>
 
 using namespace IntfNs;
@@ -460,13 +461,14 @@ void Circuit::createCircuitPmt(const int &gateID, const Cell *const cell,
 // **************************************************************************
 void Circuit::createFaultVal()
 {
-	for (int i = 0; i < numGate_; ++i)
+	for (int i = 0; i < numGate_ * numFrame_; ++i)
 	{
 		goodSimLow_[i] = PARA_L;
 		goodSimHigh_[i]= PARA_L;
 		faultSimLow_[i] = PARA_L;
 		faultSimHigh_[i]= PARA_L;
 	}
+	
 }
 
 // **************************************************************************
