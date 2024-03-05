@@ -17,7 +17,7 @@ namespace FanNs {
 // SETUP commands
 class ReadLibCmd : public CommonNs::Cmd {
 public:
-         ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~ReadLibCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -25,11 +25,12 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
 
 class ReadNlCmd : public CommonNs::Cmd {
 public:
-         ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~ReadNlCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -37,11 +38,12 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
 
 class SetFaultTypeCmd : public CommonNs::Cmd {
 public:
-         SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~SetFaultTypeCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -49,11 +51,12 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
 
 class ReportNetlistCmd : public CommonNs::Cmd {
 public:
-         ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~ReportNetlistCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -61,11 +64,12 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
 
 class BuildCircuitCmd : public CommonNs::Cmd {
 public:
-         BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~BuildCircuitCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -73,7 +77,10 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
+
+
 
 };
 

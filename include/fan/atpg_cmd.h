@@ -17,7 +17,7 @@ namespace FanNs {
 // ATPG commands
 class ReadPatCmd : public CommonNs::Cmd {
 public:
-         ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~ReadPatCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -25,12 +25,12 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
-
 
 class AddFaultCmd : public CommonNs::Cmd {
 public:
-         AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~AddFaultCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -39,12 +39,14 @@ private:
     void   addAllFault();
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
 
 class ReportFaultCmd : public CommonNs::Cmd {
 public:
-         ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C); 
          ~ReportFaultCmd();
+         
 
     bool exec(const std::vector<std::string> &argv);
 
@@ -52,12 +54,13 @@ private:
     void   ShowFaultList(FanMgr *fanMgr, bool stateSet,  CoreNs::Fault::FAULT_STATE state);
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
     FanMgr *fanMgr_;
 };
 
 class ReportCircuitCmd : public CommonNs::Cmd {
 public:
-         ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~ReportCircuitCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -65,24 +68,12 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
-};
-
-class ReportGateCmd : public CommonNs::Cmd {
-public:
-         ReportGateCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
-         ~ReportGateCmd();
-
-    bool exec(const std::vector<std::string> &argv);
-
-private:
-    void   reportGate(const int &i) const;
-    FanMgr *fanMgr_A_;
-    FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
 
 class RunFaultSimCmd : public CommonNs::Cmd {
 public:
-         RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B);
+         RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
          ~RunFaultSimCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -90,9 +81,8 @@ public:
 private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
 };
-
-
 };
 
 #endif
