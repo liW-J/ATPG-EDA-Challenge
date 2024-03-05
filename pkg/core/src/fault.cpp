@@ -92,8 +92,8 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 			int SA0EquivalentOfInput, SA1EquivalentOfInput; // SA0Equivalent, SA1Equivalent of the input(fanin) gates.
 			
 			int begin,end ;
-			if (fanMgrTYPE == 0){ begin = 0; end = pCircuit->numGate_/2; }
-			else if (fanMgrTYPE == 1){ begin = pCircuit->numGate_/2; end = pCircuit->numGate_; }
+			if (fanMgrTYPE == 0){ begin = 0; end = (pCircuit->numGate_)/2; }
+			else if (fanMgrTYPE == 1){ begin = (pCircuit->numGate_)/2; end = pCircuit->numGate_; }
 			
 			for (int i = begin ; i < end; ++i)
 			{
@@ -222,7 +222,7 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 		for (int i = 0; i < (int)pCircuit->pNetlist_->getTop()->getNPort(); ++i)
 		{
 			IntfNs::Port *p = pCircuit->pNetlist_->getTop()->getPort(i);
-			if (!strcmp(p->name_, "CK")) // Sequential circuit
+			if (!strcmp(p->name_, "CK") && fanMgrTYPE == 1) // Sequential circuit
 			{
 				// CK
 				extractedFaults_.push_back(Fault(-1, Fault::SA0, 0, 1, Fault::DT));
