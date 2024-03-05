@@ -213,11 +213,13 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_
 	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C);
 	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B, &fanMgr_C);
 	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C);
+	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr_A, &fanMgr_B, &fanMgr_C);
 	cmdMgr.regCmd("ATPG", readPatCmd);
 	cmdMgr.regCmd("ATPG", addFaultCmd);
 	cmdMgr.regCmd("ATPG", reportFaultCmd);
 	cmdMgr.regCmd("ATPG", runFaultSimCmd);
 	cmdMgr.regCmd("ATPG", reportCircuitCmd);
+	cmdMgr.regCmd("ATPG", reportStatsCmd);
 
 
 	// misc commands

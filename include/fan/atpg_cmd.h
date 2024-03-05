@@ -71,6 +71,19 @@ private:
     FanMgr *fanMgr_C_;
 };
 
+class ReportStatsCmd : public CommonNs::Cmd {
+public:
+         ReportStatsCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_Cr);
+         ~ReportStatsCmd();
+
+    bool exec(const std::vector<std::string> &argv);
+
+private:
+    FanMgr *fanMgr_A_;
+    FanMgr *fanMgr_B_;
+    FanMgr *fanMgr_C_;
+};
+
 class RunFaultSimCmd : public CommonNs::Cmd {
 public:
          RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);

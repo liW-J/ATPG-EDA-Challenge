@@ -643,3 +643,159 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	return true;
 }
 
+ReportStatsCmd::ReportStatsCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C) : Cmd(name)
+{
+	fanMgr_A_ = fanMgr_A;
+	fanMgr_B_ = fanMgr_B;
+	fanMgr_C_ = fanMgr_C;
+	optMgr_.setName(name);
+	optMgr_.setShortDes("report statistics");
+	optMgr_.setDes("reports statistics on fault coverage");
+	Opt *opt = new Opt(Opt::BOOL, "print usage", "");
+	opt->addFlag("h");
+	opt->addFlag("help");
+	optMgr_.regOpt(opt);
+}
+ReportStatsCmd::~ReportStatsCmd() {}
+
+bool ReportStatsCmd::exec(const std::vector<std::string> &argv)
+{
+	optMgr_.parse(argv);
+
+	if (optMgr_.isFlagSet("h"))
+	{
+		optMgr_.usage();
+		return true;
+	}
+
+	if (!fanMgr_A_->fListExtract || fanMgr_A_->fListExtract->faultsInCircuit_.size() == 0)
+	{
+		std::cerr << "**WARN ReportStatsCmd::exec(): no statistics\n";
+		return false;
+	}
+
+	// determine fault model
+	std::string ftype = "";
+	switch (fanMgr_A_->fListExtract->faultListType_)
+	{
+		case FaultListExtract::SAF:
+			ftype = "SAF";
+			break;
+		case FaultListExtract::TDF:
+			ftype = "TDF";
+			break;
+		case FaultListExtract::BRF:
+			ftype = "BRF";
+			break;
+	}
+
+	// determine pattern type
+	std::string ptype = "";
+	switch (fanMgr_A_->pcoll->type_)
+	{
+		case PatternProcessor::BASIC_SCAN:
+			ptype = "BASIC";
+			break;
+		case PatternProcessor::LAUNCH_CAPTURE:
+			ptype = "LOC";
+			break;
+		case PatternProcessor::LAUNCH_SHIFT:
+			ptype = "LOS";
+			break;
+	}
+
+	// determine atpg runtime
+	// float rtime = (double)fanMgr_->atpgStat.rTime / 1000000.0;
+
+	size_t npat = 0;
+
+	if (fanMgr_A_->pcoll)
+	{
+		npat = fanMgr_A_->pcoll->patternVector_.size();
+	}
+
+	size_t numCollapsedFaults = 0;
+	size_t fu = 0;
+	size_t ud = 0;
+	size_t dt = 0;
+	size_t pt = 0;
+	size_t au = 0;
+	size_t ti = 0;
+	size_t re = 0;
+	size_t ab = 0;
+
+	FaultPtrListIter it = fanMgr_A_->fListExtract->faultsInCircuit_.begin();
+	for (; it != fanMgr_A_->fListExtract->faultsInCircuit_.end(); ++it)
+	{
+		++numCollapsedFaults;
+		int eq = (*it)->equivalent_;
+		fu += eq;
+		switch ((*it)->faultState_)
+		{
+			case Fault::UD:
+				ud += eq;
+				break;
+			case Fault::DT:
+				dt += eq;
+				break;
+			case Fault::PT:
+				pt += eq;
+				break;
+			case Fault::AU:
+				au += eq;
+				break;
+			case Fault::TI:
+				ti += eq;
+				break;
+			case Fault::RE:
+				re += eq;
+				break;
+			case Fault::AB:
+				ab += eq;
+				break;
+		}
+	}
+
+	float fc = (float)dt / (float)fu * 100;
+	float tc = (float)dt / (float)(ud + dt + pt + ab) * 100;
+	float ae = (float)(dt + au + ti + re) / (float)fu * 100;
+
+	std::cout << std::right;
+	std::cout << std::setprecision(4);
+	std::cout << "#                 Statistics Report\n";
+	std::cout << "#  Circuit name                  " << std::setw(19);
+	std::cout << fanMgr_A_->nl->getTop()->name_ << "\n";
+	std::cout << "#  Fault model                   " << std::setw(19) << ftype << "\n";
+	std::cout << "#  Pattern type                  " << std::setw(19) << ptype << "\n";
+	std::cout << "#  -------------------------------------------------\n";
+	std::cout << "#  Fault classes                             #faults\n";
+	std::cout << "#  ----------------------------  -------------------\n";
+	std::cout << "#    FU (full)                   " << std::setw(19) << fu << "\n";
+	std::cout << "#    FU (collapsed)              " << std::setw(19) << numCollapsedFaults << "\n";
+	std::cout << "#    --------------------------  -------------------\n";
+	std::cout << "#    UD (undetected)             " << std::setw(19) << ud << "\n";
+	std::cout << "#    PT (possibly testable)      " << std::setw(19) << pt << "\n";
+	std::cout << "#    AU (atpg untestable)        " << std::setw(19) << au << "\n";
+	std::cout << "#    RE (redundant)              " << std::setw(19) << re << "\n";
+	std::cout << "#    AB (atpg abort)             " << std::setw(19) << ab << "\n";
+	std::cout << "#    TI (tied)                   " << std::setw(19) << ti << "\n";
+	std::cout << "#    --------------------------  -------------------\n";
+	std::cout << "#    DT (detected)               " << std::setw(19) << dt << "\n";
+	std::cout << "#  -------------------------------------------------\n";
+	std::cout << "#  Coverage                               percentage\n";
+	std::cout << "#    --------------------------  -------------------\n";
+	std::cout << "#    test coverage                            ";
+	std::cout << std::setw(5) << tc << "%\n";
+	std::cout << "#    fault coverage                           ";
+	std::cout << std::setw(5) << fc << "%\n";
+	std::cout << "#    atpg effectiveness                       ";
+	std::cout << std::setw(5) << ae << "%\n";
+	std::cout << "#  -------------------------------------------------\n";
+	std::cout << "#  #Patterns                     " << std::setw(19) << npat << "\n";
+	std::cout << "#  -------------------------------------------------\n";
+	std::cout << "#  ATPG runtime                  " << std::setw(17) << rtime;
+	std::cout << " s\n";
+	std::cout << "#  -------------------------------------------------\n";
+
+	return true;
+}
