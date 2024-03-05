@@ -17,7 +17,7 @@ namespace FanNs {
 // SETUP commands
 class ReadLibCmd : public CommonNs::Cmd {
 public:
-         ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
+         ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D);
          ~ReadLibCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -26,11 +26,12 @@ private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
+    FanMgr *fanMgr_D_;
 };
 
 class ReadNlCmd : public CommonNs::Cmd {
 public:
-         ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
+         ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D);
          ~ReadNlCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -39,11 +40,12 @@ private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
+    FanMgr *fanMgr_D_;
 };
 
 class SetFaultTypeCmd : public CommonNs::Cmd {
 public:
-         SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
+         SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D);
          ~SetFaultTypeCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -52,11 +54,12 @@ private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
+    FanMgr *fanMgr_D_;
 };
 
 class ReportNetlistCmd : public CommonNs::Cmd {
 public:
-         ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
+         ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D);
          ~ReportNetlistCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -65,11 +68,12 @@ private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
+    FanMgr *fanMgr_D_;
 };
 
 class BuildCircuitCmd : public CommonNs::Cmd {
 public:
-         BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C);
+         BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D);
          ~BuildCircuitCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -78,6 +82,7 @@ private:
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
+    FanMgr *fanMgr_D_;
 };
 
 

@@ -19,7 +19,7 @@ using namespace FanNs;
 
 void printWelcome();
 void initOpt(OptMgr &mgr);
-void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C);
+void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C, FanMgr &fanMgr_D);
 void printGoodbye(TmUsage &tmusg);
 
 int main(int argc, char **argv)
@@ -44,8 +44,9 @@ int main(int argc, char **argv)
 	FanMgr fanMgr_A;
 	FanMgr fanMgr_B;
 	FanMgr fanMgr_C;
+	FanMgr fanMgr_D;
 	CmdMgr cmdMgr;
-	initCmd(cmdMgr, fanMgr_A, fanMgr_B, fanMgr_C);
+	initCmd(cmdMgr, fanMgr_A, fanMgr_B, fanMgr_C, fanMgr_D);
 	CmdMgr::Result res = CmdMgr::SUCCESS;
 
 	// welcome message
@@ -173,7 +174,7 @@ void initOpt(OptMgr &mgr)
 	mgr.regOpt(opt);
 }
 
-void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C)
+void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C, FanMgr &fanMgr_D)
 {
 	// system commands
 	Cmd *listCmd = new SysListCmd("ls");
@@ -196,11 +197,11 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_
 	cmdMgr.regCmd("SYSTEM", helpCmd);
 
 	// setup commands
-	Cmd *readLibCmd = new ReadLibCmd("read_lib", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *readNlCmd = new ReadNlCmd("read_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *setFaultTypeCmd = new SetFaultTypeCmd("set_fault_type", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *buildCirCmd = new BuildCircuitCmd("build_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *reportNlCmd = new ReportNetlistCmd("report_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C);
+	Cmd *readLibCmd = new ReadLibCmd("read_lib", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *readNlCmd = new ReadNlCmd("read_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *setFaultTypeCmd = new SetFaultTypeCmd("set_fault_type", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *buildCirCmd = new BuildCircuitCmd("build_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *reportNlCmd = new ReportNetlistCmd("report_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
 	cmdMgr.regCmd("SETUP", readLibCmd);
 	cmdMgr.regCmd("SETUP", readNlCmd);
 	cmdMgr.regCmd("SETUP", setFaultTypeCmd);
@@ -208,12 +209,12 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_
 	cmdMgr.regCmd("SETUP", reportNlCmd);
 
 	// ATPG commands
-	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C);
-	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr_A, &fanMgr_B, &fanMgr_C);
+	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
+	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D);
 	cmdMgr.regCmd("ATPG", readPatCmd);
 	cmdMgr.regCmd("ATPG", addFaultCmd);
 	cmdMgr.regCmd("ATPG", reportFaultCmd);
