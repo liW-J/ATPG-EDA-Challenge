@@ -19,7 +19,7 @@ using namespace FanNs;
 
 void printWelcome();
 void initOpt(OptMgr &mgr);
-void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr);
+void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B);
 void printGoodbye(TmUsage &tmusg);
 
 int main(int argc, char **argv)
@@ -41,9 +41,10 @@ int main(int argc, char **argv)
 	}
 
 	// initialize command manager and FAN manager
-	FanMgr fanMgr;
+	FanMgr fanMgr_A;
+	FanMgr fanMgr_B;
 	CmdMgr cmdMgr;
-	initCmd(cmdMgr, fanMgr);
+	initCmd(cmdMgr, fanMgr_A, fanMgr_B);
 	CmdMgr::Result res = CmdMgr::SUCCESS;
 
 	// welcome message
@@ -171,7 +172,7 @@ void initOpt(OptMgr &mgr)
 	mgr.regOpt(opt);
 }
 
-void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr)
+void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B)
 {
 	// system commands
 	Cmd *listCmd = new SysListCmd("ls");
@@ -194,62 +195,29 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr)
 	cmdMgr.regCmd("SYSTEM", helpCmd);
 
 	// setup commands
-	Cmd *readLibCmd = new ReadLibCmd("read_lib", &fanMgr);
-	Cmd *readNlCmd = new ReadNlCmd("read_netlist", &fanMgr);
-	Cmd *setFaultTypeCmd = new SetFaultTypeCmd("set_fault_type", &fanMgr);
-	Cmd *buildCirCmd = new BuildCircuitCmd("build_circuit", &fanMgr);
-	Cmd *reportNlCmd = new ReportNetlistCmd("report_netlist", &fanMgr);
-	Cmd *reportCellCmd = new ReportCellCmd("report_cell", &fanMgr);
-	Cmd *reportLibCmd = new ReportLibCmd("report_lib", &fanMgr);
-	Cmd *setPatternTypeCmd = new SetPatternTypeCmd("set_pattern_type", &fanMgr);
-	Cmd *setStaticCompressionCmd = new SetStaticCompressionCmd("set_static_compression", &fanMgr);
-	Cmd *setDynamicCompressionCmd = new SetDynamicCompressionCmd("set_dynamic_compression", &fanMgr);
-	Cmd *setXFillCmd = new SetXFillCmd("set_X-Fill", &fanMgr);
+	Cmd *readLibCmd = new ReadLibCmd("read_lib", &fanMgr_A, &fanMgr_B);
+	Cmd *readNlCmd = new ReadNlCmd("read_netlist", &fanMgr_A, &fanMgr_B);
+	Cmd *setFaultTypeCmd = new SetFaultTypeCmd("set_fault_type", &fanMgr_A, &fanMgr_B);
+	Cmd *buildCirCmd = new BuildCircuitCmd("build_circuit", &fanMgr_A, &fanMgr_B);
+	Cmd *reportNlCmd = new ReportNetlistCmd("report_netlist", &fanMgr_A, &fanMgr_B);
 	cmdMgr.regCmd("SETUP", readLibCmd);
 	cmdMgr.regCmd("SETUP", readNlCmd);
 	cmdMgr.regCmd("SETUP", setFaultTypeCmd);
 	cmdMgr.regCmd("SETUP", buildCirCmd);
 	cmdMgr.regCmd("SETUP", reportNlCmd);
-	cmdMgr.regCmd("SETUP", reportCellCmd);
-	cmdMgr.regCmd("SETUP", reportLibCmd);
-	cmdMgr.regCmd("SETUP", setPatternTypeCmd);
-	cmdMgr.regCmd("SETUP", setStaticCompressionCmd);
-	cmdMgr.regCmd("SETUP", setDynamicCompressionCmd);
-	cmdMgr.regCmd("SETUP", setXFillCmd);
 
 	// ATPG commands
-	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr);
-	Cmd *reportPatCmd = new ReportPatCmd("report_pattern", &fanMgr);
-	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr);
-	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr);
-	Cmd *addPinConsCmd = new AddPinConsCmd("add_pin_constraint", &fanMgr);
-	Cmd *runLogicSimCmd = new RunLogicSimCmd("run_logic_sim", &fanMgr);
-	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr);
-	Cmd *runAtpgCmd = new RunAtpgCmd("run_atpg", &fanMgr);
-	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr);
-	Cmd *reportGateCmd = new ReportGateCmd("report_gate", &fanMgr);
-	Cmd *reportValueCmd = new ReportValueCmd("report_value", &fanMgr);
-	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr);
-	Cmd *writePatCmd = new WritePatCmd("write_pattern", &fanMgr);
-	Cmd *writeStilCmd = new WriteStilCmd("write_to_STIL", &fanMgr);
-	Cmd *writeProcCmd = new WriteProcCmd("write_test_procedure_file", &fanMgr);
-	Cmd *addScanChainsCmd = new AddScanChainsCmd("add_scan_chains", &fanMgr);
+	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr_A, &fanMgr_B);
+	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr_A, &fanMgr_B);
+	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B);
+	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B);
+	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B);
 	cmdMgr.regCmd("ATPG", readPatCmd);
-	cmdMgr.regCmd("ATPG", reportPatCmd);
 	cmdMgr.regCmd("ATPG", addFaultCmd);
 	cmdMgr.regCmd("ATPG", reportFaultCmd);
-	cmdMgr.regCmd("ATPG", addPinConsCmd);
-	cmdMgr.regCmd("ATPG", runLogicSimCmd);
 	cmdMgr.regCmd("ATPG", runFaultSimCmd);
-	cmdMgr.regCmd("ATPG", runAtpgCmd);
 	cmdMgr.regCmd("ATPG", reportCircuitCmd);
-	cmdMgr.regCmd("ATPG", reportGateCmd);
-	cmdMgr.regCmd("ATPG", reportValueCmd);
-	cmdMgr.regCmd("ATPG", reportStatsCmd);
-	cmdMgr.regCmd("ATPG", writePatCmd);
-	cmdMgr.regCmd("ATPG", writeStilCmd);
-	cmdMgr.regCmd("ATPG", writeProcCmd);
-	cmdMgr.regCmd("ATPG", addScanChainsCmd);
+
 
 	// misc commands
 	Cmd *reportPatFormatCmd = new ReportPatFormatCmd("report_pattern_format");

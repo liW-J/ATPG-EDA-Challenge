@@ -77,6 +77,7 @@ void Simulator::parallelFaultFaultSimWithAllPattern(PatternProcessor *pPatternCo
 {
 	// Undetected faults are remaining faults.
 	FaultPtrList remainingFaults;
+	// for (Fault *const &pFault : pFaultListExtract->faultsInCircuit_)
 	for (Fault *const &pFault : pFaultListExtract->faultsInCircuit_)
 	{
 		bool faultNotDetect = pFault->faultState_ != Fault::DT && pFault->faultState_ != Fault::RE && pFault->faultyLine_ >= 0;

@@ -29,7 +29,7 @@ using namespace CoreNs;
 //            ]
 // Date       [ Ver. 2.0 last modified 2023/01/05 ]
 // **************************************************************************
-void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit)
+void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE)
 {
 	bool useFC = true; // Should be able to set on or off in script like test compression.
 
@@ -90,7 +90,12 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit)
 		{
 			std::vector<int> SA0Equivalent(pCircuit->numGate_, 1), SA1Equivalent(pCircuit->numGate_, 1); // Used to count the number of equivalent faults.
 			int SA0EquivalentOfInput, SA1EquivalentOfInput; // SA0Equivalent, SA1Equivalent of the input(fanin) gates.
-			for (int i = 0; i < pCircuit->numGate_; ++i)
+			
+			int begin,end ;
+			if (fanMgrTYPE == 0){ begin = 0; end = pCircuit->numGate_/2; }
+			else if (fanMgrTYPE == 1){ begin = pCircuit->numGate_/2; end = pCircuit->numGate_; }
+			
+			for (int i = begin ; i < end; ++i)
 			{
 				// Adding input faults.
 				switch (pCircuit->circuitGates_[i].gateType_)

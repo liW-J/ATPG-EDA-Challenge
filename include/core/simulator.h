@@ -449,11 +449,12 @@ namespace CoreNs
 	inline void Simulator::assignPatternToCircuitInputs(const Pattern &pattern)
 	{
 		// Set pattern : Apply the pattern to PIs.
+		
 		for (int j = 0; j < pCircuit_.numPI_; ++j)
 		{
 			pCircuit_.goodSimLow_[j] = PARA_L;
 			pCircuit_.goodSimHigh_[j] = PARA_L;
-
+			
 			if (!pattern.PI1_.empty())
 			{
 				if (pattern.PI1_[j] == L)
@@ -483,7 +484,7 @@ namespace CoreNs
 				}
 			}
 		}
-
+	
 
 		// Set pattern : Apply the pattern to PPIs.
 		for (int j = pCircuit_.numPI_; j < pCircuit_.numPI_ + pCircuit_.numPPI_; ++j)
