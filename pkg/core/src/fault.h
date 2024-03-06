@@ -84,7 +84,7 @@ namespace CoreNs
 		FaultListExtract();
 
 		// Extract faults from the circuit.
-		void extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE);
+		void extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE, int cut);
 
 		std::vector<int> gateIndexToFaultIndex_; // Map gate index to fault list index.
 		std::vector<Fault> uncollapsedFaults_;   // Record faults without fault collapsing, used for adding part of faults for ATPG.

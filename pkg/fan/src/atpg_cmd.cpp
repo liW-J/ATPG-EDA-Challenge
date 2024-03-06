@@ -21,7 +21,7 @@ using namespace FanNs;
 
 double rtime;
 
-ReadPatCmd::ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F) : Cmd(name)
+ReadPatCmd::ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -29,6 +29,7 @@ ReadPatCmd::ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("read patterns");
 	optMgr_.setDes("read pattern form FILE");
@@ -60,13 +61,17 @@ bool ReadPatCmd::exec(const std::vector<std::string> &argv)
 		return false;
 	}
 
-		exec_once(fanMgr_A_);
-		exec_once(fanMgr_B_);
-		exec_once(fanMgr_C_);
-		exec_once(fanMgr_D_);
-		exec_once(fanMgr_E_);
-		exec_once(fanMgr_F_);
-
+	switch (cut_)
+	{
+	case 6:exec_once(fanMgr_F_);
+	case 5:exec_once(fanMgr_E_);
+	case 4:exec_once(fanMgr_D_);
+	case 3:exec_once(fanMgr_C_);
+	case 2:exec_once(fanMgr_B_);
+	case 1:exec_once(fanMgr_A_);
+	default:break;
+	}
+		
 	return true;
 }
 
@@ -116,7 +121,7 @@ bool ReadPatCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F) : Cmd(name)
+AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -124,6 +129,7 @@ AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanM
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("add faults");
 	optMgr_.setDes("adds faults either by extract from circuit or from file");
@@ -157,17 +163,21 @@ bool AddFaultCmd::exec(const std::vector<std::string> &argv)
 		return true;
 	}
 
-	exec_once(fanMgr_A_, 0);
-	exec_once(fanMgr_B_, 1);
-	exec_once(fanMgr_C_, 2);
-	exec_once(fanMgr_D_, 3);
-	exec_once(fanMgr_E_, 4);
-	exec_once(fanMgr_F_, 5);
+	switch (cut_)
+	{
+	case 6:exec_once(fanMgr_F_, 5, cut_);
+	case 5:exec_once(fanMgr_E_, 4, cut_);
+	case 4:exec_once(fanMgr_D_, 3, cut_);
+	case 3:exec_once(fanMgr_C_, 2, cut_);
+	case 2:exec_once(fanMgr_B_, 1, cut_);
+	case 1:exec_once(fanMgr_A_, 0, cut_);
+	default:break;
+	}
 	
 	return true;
 }
 
-bool AddFaultCmd::exec_once(FanMgr *fanMgr, int fanMgrTYPE){
+bool AddFaultCmd::exec_once(FanMgr *fanMgr, int fanMgrTYPE, int cut){
 	fanMgr_ = fanMgr;
 	if (!fanMgr_->cir)
 	{
@@ -180,7 +190,7 @@ bool AddFaultCmd::exec_once(FanMgr *fanMgr, int fanMgrTYPE){
 		fanMgr_->fListExtract = new FaultListExtract;
 	}
 
-	fanMgr_->fListExtract->extractFaultFromCircuit(fanMgr_->cir, fanMgrTYPE);
+	fanMgr_->fListExtract->extractFaultFromCircuit(fanMgr_->cir, fanMgrTYPE, cut);
 
 	// add all faults
 	if (optMgr_.isFlagSet("a"))
@@ -560,7 +570,7 @@ bool ReportCircuitCmd::exec(const std::vector<std::string> &argv)
 	return true;
 }
 
-RunFaultSimCmd::RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F) : Cmd(name)
+RunFaultSimCmd::RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -568,6 +578,7 @@ RunFaultSimCmd::RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("run fault simulation");
 	optMgr_.setDes("run fault simulation on the given pattern");
@@ -591,28 +602,16 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		optMgr_.usage();
 		return true;
 	}
-
-	if (!fanMgr_A_->cir || !fanMgr_B_->cir || !fanMgr_C_->cir || !fanMgr_D_->cir)
-	{
-		std::cerr << "**ERROR RunFaultSimCmd::exec(): circuit needed\n";
-		return false;
-	}
-
-	if (!fanMgr_A_->pcoll || !fanMgr_B_->pcoll || !fanMgr_C_->pcoll || !fanMgr_D_->pcoll)
-	{
-		std::cerr << "**ERROR RunFaultSimCmd::exec(): pattern needed\n";
-		return false;
-	}
-
-	if (!fanMgr_A_->sim || !fanMgr_B_->sim || !fanMgr_C_->sim || !fanMgr_D_->sim || !fanMgr_E_->sim || !fanMgr_F_->sim)
-	{
-		fanMgr_A_->sim = new Simulator(*fanMgr_A_->cir);
-		fanMgr_B_->sim = new Simulator(*fanMgr_B_->cir);
-		fanMgr_C_->sim = new Simulator(*fanMgr_C_->cir);
-		fanMgr_D_->sim = new Simulator(*fanMgr_D_->cir);
-		fanMgr_E_->sim = new Simulator(*fanMgr_E_->cir);
-		fanMgr_F_->sim = new Simulator(*fanMgr_F_->cir);
-	}
+	// printf("1111111\n\n\n");
+	// if (!fanMgr_A_->sim || !fanMgr_B_->sim || !fanMgr_C_->sim || !fanMgr_D_->sim || !fanMgr_E_->sim || !fanMgr_F_->sim)
+	// {
+		
+		
+		
+		
+		
+		
+	// }
 
 	std::cout << "#  Performing fault simulation ...\n";
 	
@@ -627,33 +626,51 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	{
 		#pragma omp section
 		printf("BEGIN:A-----------\n");
-		fanMgr_A_->tmusg.periodStart();
-		fanMgr_A_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_A_->pcoll, fanMgr_A_->fListExtract);
+		if(cut_ > 0){
+			fanMgr_A_->sim = new Simulator(*fanMgr_A_->cir);
+			fanMgr_A_->tmusg.periodStart();
+			fanMgr_A_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_A_->pcoll, fanMgr_A_->fListExtract);
+		}
 		printf("END:A-----------\n");
 		#pragma omp section
 		printf("BEGIN:B-----------\n");
-		fanMgr_B_->tmusg.periodStart();
-		fanMgr_B_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_B_->pcoll, fanMgr_B_->fListExtract);
+		if(cut_ > 1){
+			fanMgr_B_->sim = new Simulator(*fanMgr_B_->cir);
+			fanMgr_B_->tmusg.periodStart();
+			fanMgr_B_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_B_->pcoll, fanMgr_B_->fListExtract);
+		}
 		printf("END:B-----------\n");
 		#pragma omp section
 		printf("BEGIN:C-----------\n");
-		fanMgr_C_->tmusg.periodStart();
-		fanMgr_C_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_C_->pcoll, fanMgr_C_->fListExtract);
+		if(cut_ > 2){
+			fanMgr_C_->sim = new Simulator(*fanMgr_C_->cir);
+			fanMgr_C_->tmusg.periodStart();
+			fanMgr_C_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_C_->pcoll, fanMgr_C_->fListExtract);
+		}
 		printf("END:C-----------\n");
 		#pragma omp section
 		printf("BEGIN:D-----------\n");
-		fanMgr_D_->tmusg.periodStart();
-		fanMgr_D_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_D_->pcoll, fanMgr_D_->fListExtract);
+		if(cut_ > 3){
+			fanMgr_D_->sim = new Simulator(*fanMgr_D_->cir);
+			fanMgr_D_->tmusg.periodStart();
+			fanMgr_D_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_D_->pcoll, fanMgr_D_->fListExtract);
+		}
 		printf("END:D-----------\n");
 		#pragma omp section
 		printf("BEGIN:E-----------\n");
-		fanMgr_E_->tmusg.periodStart();
-		fanMgr_E_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_E_->pcoll, fanMgr_E_->fListExtract);
+		if(cut_ > 4){
+			fanMgr_E_->sim = new Simulator(*fanMgr_E_->cir);
+			fanMgr_E_->tmusg.periodStart();
+			fanMgr_E_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_E_->pcoll, fanMgr_E_->fListExtract);
+		}
 		printf("END:E-----------\n");
 		#pragma omp section
 		printf("BEGIN:F-----------\n");
-		fanMgr_F_->tmusg.periodStart();
-		fanMgr_F_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_F_->pcoll, fanMgr_F_->fListExtract);
+		if(cut_ > 5){
+			fanMgr_F_->sim = new Simulator(*fanMgr_F_->cir);
+			fanMgr_F_->tmusg.periodStart();
+			fanMgr_F_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_F_->pcoll, fanMgr_F_->fListExtract);
+		}
 		printf("END:F-----------\n");
 	}
 	}

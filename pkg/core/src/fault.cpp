@@ -29,11 +29,10 @@ using namespace CoreNs;
 //            ]
 // Date       [ Ver. 2.0 last modified 2023/01/05 ]
 // **************************************************************************
-void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE)
+void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE, int cut)
 {
 	bool useFC = true; // Should be able to set on or off in script like test compression.
 	int begin, end;
-	int cut = 6;
 	// Since the function only called once, we don't need to clear faults initially.
 	// Reserve enough space for faults push_back, 10 * circuit->numGate_ is maximum possible faults in a circuit.
 	int reservedSize = 10 * pCircuit->numGate_;

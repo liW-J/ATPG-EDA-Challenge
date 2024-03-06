@@ -15,7 +15,7 @@ using namespace IntfNs;
 using namespace CoreNs;
 using namespace FanNs;
 
-ReadLibCmd::ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F) : Cmd(name)
+ReadLibCmd::ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -23,6 +23,7 @@ ReadLibCmd::ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("read mentor technology library");
 	optMgr_.setDes("read mentor technology library");
@@ -57,12 +58,16 @@ bool ReadLibCmd::exec(const std::vector<std::string> &argv)
 		return false;
 	}
 
-	exec_once(fanMgr_A_);
-	exec_once(fanMgr_B_);
-	exec_once(fanMgr_C_);
-	exec_once(fanMgr_D_);
-	exec_once(fanMgr_E_);
-	exec_once(fanMgr_F_);
+	switch (cut_)
+	{
+	case 6:exec_once(fanMgr_F_);
+	case 5:exec_once(fanMgr_E_);
+	case 4:exec_once(fanMgr_D_);
+	case 3:exec_once(fanMgr_C_);
+	case 2:exec_once(fanMgr_B_);
+	case 1:exec_once(fanMgr_A_);
+	default:break;
+	}
 
 	return true;
 }
@@ -117,7 +122,7 @@ bool ReadLibCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-ReadNlCmd::ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F) : Cmd(name)
+ReadNlCmd::ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -125,6 +130,7 @@ ReadNlCmd::ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("read verilog gate level netlist");
 	optMgr_.setDes("read verilog gate level netlist");
@@ -159,12 +165,16 @@ bool ReadNlCmd::exec(const std::vector<std::string> &argv)
 		return false;
 	}
 
-	exec_once(fanMgr_A_);
-	exec_once(fanMgr_B_);
-	exec_once(fanMgr_C_);
-	exec_once(fanMgr_D_);
-	exec_once(fanMgr_E_);
-	exec_once(fanMgr_F_);
+	switch (cut_)
+	{
+	case 6:exec_once(fanMgr_F_);
+	case 5:exec_once(fanMgr_E_);
+	case 4:exec_once(fanMgr_D_);
+	case 3:exec_once(fanMgr_C_);
+	case 2:exec_once(fanMgr_B_);
+	case 1:exec_once(fanMgr_A_);
+	default:break;
+	}
 
 	return true;
 }
@@ -390,7 +400,7 @@ bool ReportNetlistCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-BuildCircuitCmd::BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F) : Cmd(name)
+BuildCircuitCmd::BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -398,6 +408,7 @@ BuildCircuitCmd::BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanM
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("build circuit");
 	optMgr_.setDes("build netlist into internal circuit data structure");
@@ -423,12 +434,16 @@ bool BuildCircuitCmd::exec(const std::vector<std::string> &argv)
 		return true;
 	}
 
-	exec_once(fanMgr_A_);
-	exec_once(fanMgr_B_);
-	exec_once(fanMgr_C_);
-	exec_once(fanMgr_D_);
-	exec_once(fanMgr_E_);
-	exec_once(fanMgr_F_);
+	switch (cut_)
+	{
+	case 6:exec_once(fanMgr_F_);
+	case 5:exec_once(fanMgr_E_);
+	case 4:exec_once(fanMgr_D_);
+	case 3:exec_once(fanMgr_C_);
+	case 2:exec_once(fanMgr_B_);
+	case 1:exec_once(fanMgr_A_);
+	default:break;
+	}
 
 	return true;
 }

@@ -17,7 +17,7 @@ namespace FanNs {
 // SETUP commands
 class ReadLibCmd : public CommonNs::Cmd {
 public:
-         ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F);
+         ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
          ~ReadLibCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -31,11 +31,12 @@ private:
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 
 class ReadNlCmd : public CommonNs::Cmd {
 public:
-         ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F);
+         ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
          ~ReadNlCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -49,6 +50,7 @@ private:
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 
 class SetFaultTypeCmd : public CommonNs::Cmd {
@@ -89,7 +91,7 @@ private:
 
 class BuildCircuitCmd : public CommonNs::Cmd {
 public:
-         BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F);
+         BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
          ~BuildCircuitCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -103,6 +105,7 @@ private:
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 
 

@@ -17,7 +17,7 @@ namespace FanNs {
 // ATPG commands
 class ReadPatCmd : public CommonNs::Cmd {
 public:
-         ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F);
+         ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
          ~ReadPatCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -31,18 +31,19 @@ private:
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 
 class AddFaultCmd : public CommonNs::Cmd {
 public:
-         AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F);
+         AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
          ~AddFaultCmd();
 
     bool exec(const std::vector<std::string> &argv);
 
 private:
     void   addAllFault();
-    bool exec_once(FanMgr *fanMgr, int fanMgrTYPE);
+    bool exec_once(FanMgr *fanMgr, int fanMgrTYPE, int cut);
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
@@ -50,6 +51,7 @@ private:
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 
 class ReportFaultCmd : public CommonNs::Cmd {
@@ -108,7 +110,7 @@ private:
 
 class RunFaultSimCmd : public CommonNs::Cmd {
 public:
-         RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F);
+         RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
          ~RunFaultSimCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -122,6 +124,7 @@ private:
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 };
 
