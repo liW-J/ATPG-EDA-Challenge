@@ -21,7 +21,7 @@ using namespace FanNs;
 
 double rtime;
 
-ReadPatCmd::ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F, int *cut) : Cmd(name)
+ReadPatCmd::ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -29,6 +29,11 @@ ReadPatCmd::ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	fanMgr_G_ = fanMgr_G;
+	fanMgr_H_ = fanMgr_H;
+	fanMgr_I_ = fanMgr_I;
+	fanMgr_J_ = fanMgr_J;
+	fanMgr_K_ = fanMgr_K;
 	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("read patterns");
@@ -63,6 +68,11 @@ bool ReadPatCmd::exec(const std::vector<std::string> &argv)
 
 	switch (cut_)
 	{
+	case 11:exec_once(fanMgr_K_);
+	case 10:exec_once(fanMgr_J_);
+	case 9:exec_once(fanMgr_I_);
+	case 8:exec_once(fanMgr_H_);
+	case 7:exec_once(fanMgr_G_);
 	case 6:exec_once(fanMgr_F_);
 	case 5:exec_once(fanMgr_E_);
 	case 4:exec_once(fanMgr_D_);
@@ -121,7 +131,7 @@ bool ReadPatCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
+AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -129,6 +139,11 @@ AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanM
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	fanMgr_G_ = fanMgr_G;
+	fanMgr_H_ = fanMgr_H;
+	fanMgr_I_ = fanMgr_I;
+	fanMgr_J_ = fanMgr_J;
+	fanMgr_K_ = fanMgr_K;
 	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("add faults");
@@ -165,6 +180,11 @@ bool AddFaultCmd::exec(const std::vector<std::string> &argv)
 
 	switch (cut_)
 	{
+	case 11:exec_once(fanMgr_K_, 10, cut_);
+	case 10:exec_once(fanMgr_J_, 9, cut_);
+	case 9:exec_once(fanMgr_I_, 8, cut_);
+	case 8:exec_once(fanMgr_H_, 7, cut_);
+	case 7:exec_once(fanMgr_G_, 6, cut_);
 	case 6:exec_once(fanMgr_F_, 5, cut_);
 	case 5:exec_once(fanMgr_E_, 4, cut_);
 	case 4:exec_once(fanMgr_D_, 3, cut_);
@@ -222,7 +242,7 @@ void AddFaultCmd::addAllFault()
 	std::cout << "    " << (double)stat.vmSize / 1024.0 << " MB\n";
 }
 
-ReportFaultCmd::ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F) : Cmd(name)
+ReportFaultCmd::ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -230,6 +250,11 @@ ReportFaultCmd::ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	fanMgr_G_ = fanMgr_G;
+	fanMgr_H_ = fanMgr_H;
+	fanMgr_I_ = fanMgr_I;
+	fanMgr_J_ = fanMgr_J;
+	fanMgr_K_ = fanMgr_K;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("report fault");
 	optMgr_.setDes("report fault information");
@@ -316,7 +341,7 @@ bool ReportFaultCmd::exec(const std::vector<std::string> &argv)
 			std::cout << "\n";
 			break;
 	}
-	std::cout << "#    number of faults: " << fanMgr_A_->fListExtract->faultsInCircuit_.size()+fanMgr_B_->fListExtract->faultsInCircuit_.size()+fanMgr_C_->fListExtract->faultsInCircuit_.size()+fanMgr_D_->fListExtract->faultsInCircuit_.size()+fanMgr_E_->fListExtract->faultsInCircuit_.size()+fanMgr_F_->fListExtract->faultsInCircuit_.size();
+	std::cout << "#    number of faults: " << fanMgr_A_->fListExtract->faultsInCircuit_.size()+fanMgr_B_->fListExtract->faultsInCircuit_.size()+fanMgr_C_->fListExtract->faultsInCircuit_.size()+fanMgr_D_->fListExtract->faultsInCircuit_.size()+fanMgr_E_->fListExtract->faultsInCircuit_.size()+fanMgr_F_->fListExtract->faultsInCircuit_.size()+fanMgr_G_->fListExtract->faultsInCircuit_.size()+fanMgr_H_->fListExtract->faultsInCircuit_.size()+fanMgr_I_->fListExtract->faultsInCircuit_.size()+fanMgr_J_->fListExtract->faultsInCircuit_.size()+fanMgr_K_->fListExtract->faultsInCircuit_.size();
 	std::cout << "\n";
 	std::cout << "#    type    code    pin (cell)\n";
 	std::cout << "#    ----    ----    ----------------------------------\n";	
@@ -326,6 +351,12 @@ bool ReportFaultCmd::exec(const std::vector<std::string> &argv)
 	ShowFaultList(fanMgr_D_, stateSet, state);
 	ShowFaultList(fanMgr_E_, stateSet, state);
 	ShowFaultList(fanMgr_F_, stateSet, state);
+	ShowFaultList(fanMgr_G_, stateSet, state);
+	ShowFaultList(fanMgr_H_, stateSet, state);
+	ShowFaultList(fanMgr_I_, stateSet, state);
+	ShowFaultList(fanMgr_J_, stateSet, state);
+	ShowFaultList(fanMgr_K_, stateSet, state);
+
 
 	std::cout << "\n";
 
@@ -522,7 +553,7 @@ void ReportFaultCmd::ShowFaultList(FanMgr *fanMgr, bool stateSet, Fault::FAULT_S
 
 }
 
-ReportCircuitCmd::ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F) : Cmd(name)
+ReportCircuitCmd::ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -530,6 +561,11 @@ ReportCircuitCmd::ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, Fa
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	fanMgr_G_ = fanMgr_G;
+	fanMgr_H_ = fanMgr_H;
+	fanMgr_I_ = fanMgr_I;
+	fanMgr_J_ = fanMgr_J;
+	fanMgr_K_ = fanMgr_K;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("report circuit");
 	optMgr_.setDes("report circuit information");
@@ -570,7 +606,7 @@ bool ReportCircuitCmd::exec(const std::vector<std::string> &argv)
 	return true;
 }
 
-RunFaultSimCmd::RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut) : Cmd(name)
+RunFaultSimCmd::RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -578,6 +614,11 @@ RunFaultSimCmd::RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr
 	fanMgr_D_ = fanMgr_D;
 	fanMgr_E_ = fanMgr_E;
 	fanMgr_F_ = fanMgr_F;
+	fanMgr_G_ = fanMgr_G;
+	fanMgr_H_ = fanMgr_H;
+	fanMgr_I_ = fanMgr_I;
+	fanMgr_J_ = fanMgr_J;
+	fanMgr_K_ = fanMgr_K;
 	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("run fault simulation");
@@ -602,16 +643,6 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		optMgr_.usage();
 		return true;
 	}
-	// printf("1111111\n\n\n");
-	// if (!fanMgr_A_->sim || !fanMgr_B_->sim || !fanMgr_C_->sim || !fanMgr_D_->sim || !fanMgr_E_->sim || !fanMgr_F_->sim)
-	// {
-		
-		
-		
-		
-		
-		
-	// }
 
 	std::cout << "#  Performing fault simulation ...\n";
 	
@@ -672,6 +703,46 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 			fanMgr_F_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_F_->pcoll, fanMgr_F_->fListExtract);
 		}
 		printf("END:F-----------\n");
+		#pragma omp section
+		printf("BEGIN:G-----------\n");
+		if(cut_ > 6){
+			fanMgr_G_->sim = new Simulator(*fanMgr_F_->cir);
+			fanMgr_G_->tmusg.periodStart();
+			fanMgr_G_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_G_->pcoll, fanMgr_G_->fListExtract);
+		}
+		printf("END:G-----------\n");
+		#pragma omp section
+		printf("BEGIN:H-----------\n");
+		if(cut_ > 7){
+			fanMgr_H_->sim = new Simulator(*fanMgr_F_->cir);
+			fanMgr_H_->tmusg.periodStart();
+			fanMgr_H_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_H_->pcoll, fanMgr_H_->fListExtract);
+		}
+		printf("END:H-----------\n");
+		#pragma omp section
+		printf("BEGIN:I-----------\n");
+		if(cut_ > 8){
+			fanMgr_I_->sim = new Simulator(*fanMgr_F_->cir);
+			fanMgr_I_->tmusg.periodStart();
+			fanMgr_I_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_I_->pcoll, fanMgr_I_->fListExtract);
+		}
+		printf("END:I-----------\n");
+		#pragma omp section
+		printf("BEGIN:J-----------\n");
+		if(cut_ > 9){
+			fanMgr_J_->sim = new Simulator(*fanMgr_F_->cir);
+			fanMgr_J_->tmusg.periodStart();
+			fanMgr_J_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_J_->pcoll, fanMgr_J_->fListExtract);
+		}
+		printf("END:J-----------\n");
+		#pragma omp section
+		printf("BEGIN:K-----------\n");
+		if(cut_ > 10){
+			fanMgr_K_->sim = new Simulator(*fanMgr_F_->cir);
+			fanMgr_K_->tmusg.periodStart();
+			fanMgr_K_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_K_->pcoll, fanMgr_K_->fListExtract);
+		}
+		printf("END:K-----------\n");
 	}
 	}
 
@@ -686,7 +757,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 	return true;
 }
 
-ReportStatsCmd::ReportStatsCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F) : Cmd(name)
+ReportStatsCmd::ReportStatsCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;

@@ -17,7 +17,7 @@ namespace FanNs {
 // ATPG commands
 class ReadPatCmd : public CommonNs::Cmd {
 public:
-         ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
+         ReadPatCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut);
          ~ReadPatCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -30,13 +30,18 @@ private:
     FanMgr *fanMgr_D_;
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
+    FanMgr *fanMgr_G_;
+    FanMgr *fanMgr_H_;
+    FanMgr *fanMgr_I_;
+    FanMgr *fanMgr_J_;
+    FanMgr *fanMgr_K_;
     FanMgr *fanMgr_;
     int cut_;
 };
 
 class AddFaultCmd : public CommonNs::Cmd {
 public:
-         AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
+         AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut);
          ~AddFaultCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -50,13 +55,18 @@ private:
     FanMgr *fanMgr_D_;
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
+    FanMgr *fanMgr_G_;
+    FanMgr *fanMgr_H_;
+    FanMgr *fanMgr_I_;
+    FanMgr *fanMgr_J_;
+    FanMgr *fanMgr_K_;
     FanMgr *fanMgr_;
     int cut_;
 };
 
 class ReportFaultCmd : public CommonNs::Cmd {
 public:
-         ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F); 
+         ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K); 
          ~ReportFaultCmd();
          
 
@@ -70,12 +80,17 @@ private:
     FanMgr *fanMgr_D_;
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
+    FanMgr *fanMgr_G_;
+    FanMgr *fanMgr_H_;
+    FanMgr *fanMgr_I_;
+    FanMgr *fanMgr_J_;
+    FanMgr *fanMgr_K_;
     FanMgr *fanMgr_;
 };
 
 class ReportCircuitCmd : public CommonNs::Cmd {
 public:
-         ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F);
+         ReportCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K);
          ~ReportCircuitCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -87,12 +102,17 @@ private:
     FanMgr *fanMgr_D_;
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
+    FanMgr *fanMgr_G_;
+    FanMgr *fanMgr_H_;
+    FanMgr *fanMgr_I_;
+    FanMgr *fanMgr_J_;
+    FanMgr *fanMgr_K_;
     FanMgr *fanMgr_;
 };
 
 class ReportStatsCmd : public CommonNs::Cmd {
 public:
-         ReportStatsCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E,FanMgr *fanMgr_F);
+         ReportStatsCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K);
          ~ReportStatsCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -105,12 +125,17 @@ private:
     FanMgr *fanMgr_D_;
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
+    FanMgr *fanMgr_G_;
+    FanMgr *fanMgr_H_;
+    FanMgr *fanMgr_I_;
+    FanMgr *fanMgr_J_;
+    FanMgr *fanMgr_K_;
     FanMgr *fanMgr_;
 };
 
 class RunFaultSimCmd : public CommonNs::Cmd {
 public:
-         RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, int *cut);
+         RunFaultSimCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut);
          ~RunFaultSimCmd();
 
     bool exec(const std::vector<std::string> &argv);
@@ -123,6 +148,11 @@ private:
     FanMgr *fanMgr_D_;
     FanMgr *fanMgr_E_;
     FanMgr *fanMgr_F_;
+    FanMgr *fanMgr_G_;
+    FanMgr *fanMgr_H_;
+    FanMgr *fanMgr_I_;
+    FanMgr *fanMgr_J_;
+    FanMgr *fanMgr_K_;
     FanMgr *fanMgr_;
     int cut_;
 };
