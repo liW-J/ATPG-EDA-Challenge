@@ -604,17 +604,6 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		return false;
 	}
 
-	if (!fanMgr_A_->fListExtract || fanMgr_A_->fListExtract->faultsInCircuit_.size() == 0 \
-	|| !fanMgr_B_->fListExtract || fanMgr_B_->fListExtract->faultsInCircuit_.size() == 0 \
-	|| !fanMgr_C_->fListExtract || fanMgr_C_->fListExtract->faultsInCircuit_.size() == 0 \
-	|| !fanMgr_D_->fListExtract || fanMgr_D_->fListExtract->faultsInCircuit_.size() == 0 \
-	|| !fanMgr_E_->fListExtract || fanMgr_E_->fListExtract->faultsInCircuit_.size() == 0 \
-	|| !fanMgr_F_->fListExtract || fanMgr_F_->fListExtract->faultsInCircuit_.size() == 0)
-	{
-		std::cerr << "**ERROR RunFaultSimCmd::exec(): fault list needed\n";
-		return false;
-	}
-
 	if (!fanMgr_A_->sim || !fanMgr_B_->sim || !fanMgr_C_->sim || !fanMgr_D_->sim || !fanMgr_E_->sim || !fanMgr_F_->sim)
 	{
 		fanMgr_A_->sim = new Simulator(*fanMgr_A_->cir);

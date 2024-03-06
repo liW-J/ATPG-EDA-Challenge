@@ -32,7 +32,8 @@ using namespace CoreNs;
 void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE)
 {
 	bool useFC = true; // Should be able to set on or off in script like test compression.
-
+	int begin, end;
+	int cut = 6;
 	// Since the function only called once, we don't need to clear faults initially.
 	// Reserve enough space for faults push_back, 10 * circuit->numGate_ is maximum possible faults in a circuit.
 	int reservedSize = 10 * pCircuit->numGate_;
@@ -91,13 +92,14 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 			std::vector<int> SA0Equivalent(pCircuit->numGate_, 1), SA1Equivalent(pCircuit->numGate_, 1); // Used to count the number of equivalent faults.
 			int SA0EquivalentOfInput, SA1EquivalentOfInput; // SA0Equivalent, SA1Equivalent of the input(fanin) gates.
 			
-			int begin, end;
-			if (fanMgrTYPE == 0){ begin = 0; end = (pCircuit->numGate_)/6; }
-			else if (fanMgrTYPE == 1){ begin = (pCircuit->numGate_)/6; end = (pCircuit->numGate_)/6*2; }
-			else if (fanMgrTYPE == 2){ begin = (pCircuit->numGate_)/6*2; end = (pCircuit->numGate_)/6*3; }
-			else if (fanMgrTYPE == 3){ begin = (pCircuit->numGate_)/6*3; end = (pCircuit->numGate_/6*4); }
-			else if (fanMgrTYPE == 4){ begin = (pCircuit->numGate_)/6*4; end = (pCircuit->numGate_)/6*5; }
-			else if (fanMgrTYPE == 5){ begin = (pCircuit->numGate_)/6*5; end = (pCircuit->numGate_); }
+			//initialize FaultList length 
+			if (fanMgrTYPE < cut-1){
+				begin = (pCircuit->numGate_)/cut*fanMgrTYPE ; 
+				end = (pCircuit->numGate_)/cut*(fanMgrTYPE + 1);
+			}else if(fanMgrTYPE == cut-1){
+				begin = (pCircuit->numGate_)/cut*fanMgrTYPE ; 
+				end = (pCircuit->numGate_);
+			}else{begin = 0; end = 0;}
 			
 			for (int i = begin ; i < end; ++i)
 			{
@@ -226,7 +228,7 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 		for (int i = 0; i < (int)pCircuit->pNetlist_->getTop()->getNPort(); ++i)
 		{
 			IntfNs::Port *p = pCircuit->pNetlist_->getTop()->getPort(i);
-			if (!strcmp(p->name_, "CK") && fanMgrTYPE == 5) // Sequential circuit
+			if (!strcmp(p->name_, "CK") && fanMgrTYPE == (cut-1) ) // Sequential circuit
 			{
 				// CK
 				extractedFaults_.push_back(Fault(-1, Fault::SA0, 0, 1, Fault::DT));
