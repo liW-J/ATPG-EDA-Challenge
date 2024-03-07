@@ -19,7 +19,7 @@ using namespace FanNs;
 
 void printWelcome();
 void initOpt(OptMgr &mgr);
-void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C, FanMgr &fanMgr_D, FanMgr &fanMgr_E, FanMgr &fanMgr_F, FanMgr &fanMgr_G, FanMgr &fanMgr_H, FanMgr &fanMgr_I, FanMgr &fanMgr_J, FanMgr &fanMgr_K, int &cut);
+void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C, FanMgr &fanMgr_D, FanMgr &fanMgr_E, FanMgr &fanMgr_F, FanMgr &fanMgr_G, FanMgr &fanMgr_H, FanMgr &fanMgr_I, FanMgr &fanMgr_J, FanMgr &fanMgr_K, FanMgr &fanMgr_L, FanMgr &fanMgr_M, FanMgr &fanMgr_N, FanMgr &fanMgr_O, FanMgr &fanMgr_P, FanMgr &fanMgr_Q, FanMgr &fanMgr_R, FanMgr &fanMgr_S, FanMgr &fanMgr_T, FanMgr &fanMgr_U, FanMgr &fanMgr_V, FanMgr &fanMgr_W, FanMgr &fanMgr_X, int &cut);
 void printGoodbye(TmUsage &tmusg);
 
 int main(int argc, char **argv)
@@ -52,9 +52,23 @@ int main(int argc, char **argv)
 	FanMgr fanMgr_I;
 	FanMgr fanMgr_J;
 	FanMgr fanMgr_K;
-	int cut = 7;
+	FanMgr fanMgr_L;
+	FanMgr fanMgr_M;
+	FanMgr fanMgr_N;
+	FanMgr fanMgr_O;
+	FanMgr fanMgr_P;
+	FanMgr fanMgr_Q;
+	FanMgr fanMgr_R;
+	FanMgr fanMgr_S;
+	FanMgr fanMgr_T;
+	FanMgr fanMgr_U;
+	FanMgr fanMgr_V;
+	FanMgr fanMgr_W;
+	FanMgr fanMgr_X;
+
+	int cut = 12;
 	CmdMgr cmdMgr;
-	initCmd(cmdMgr, fanMgr_A, fanMgr_B, fanMgr_C, fanMgr_D, fanMgr_E, fanMgr_F, fanMgr_G, fanMgr_H, fanMgr_I, fanMgr_J, fanMgr_K, cut);
+	initCmd(cmdMgr, fanMgr_A, fanMgr_B, fanMgr_C, fanMgr_D, fanMgr_E, fanMgr_F, fanMgr_G, fanMgr_H, fanMgr_I, fanMgr_J, fanMgr_K, fanMgr_L, fanMgr_M, fanMgr_N, fanMgr_O, fanMgr_P, fanMgr_Q, fanMgr_R, fanMgr_S, fanMgr_T, fanMgr_U, fanMgr_V, fanMgr_W, fanMgr_X, cut);
 	CmdMgr::Result res = CmdMgr::SUCCESS;
 
 	// welcome message
@@ -182,7 +196,7 @@ void initOpt(OptMgr &mgr)
 	mgr.regOpt(opt);
 }
 
-void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C, FanMgr &fanMgr_D, FanMgr &fanMgr_E, FanMgr &fanMgr_F, FanMgr &fanMgr_G, FanMgr &fanMgr_H, FanMgr &fanMgr_I, FanMgr &fanMgr_J, FanMgr &fanMgr_K, int &cut)
+void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_C, FanMgr &fanMgr_D, FanMgr &fanMgr_E, FanMgr &fanMgr_F, FanMgr &fanMgr_G, FanMgr &fanMgr_H, FanMgr &fanMgr_I, FanMgr &fanMgr_J, FanMgr &fanMgr_K, FanMgr &fanMgr_L, FanMgr &fanMgr_M, FanMgr &fanMgr_N, FanMgr &fanMgr_O, FanMgr &fanMgr_P, FanMgr &fanMgr_Q, FanMgr &fanMgr_R, FanMgr &fanMgr_S, FanMgr &fanMgr_T, FanMgr &fanMgr_U, FanMgr &fanMgr_V, FanMgr &fanMgr_W, FanMgr &fanMgr_X, int &cut)
 {
 	// system commands
 	Cmd *listCmd = new SysListCmd("ls");
@@ -205,11 +219,11 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_
 	cmdMgr.regCmd("SYSTEM", helpCmd);
 
 	// setup commands
-	Cmd *readLibCmd = new ReadLibCmd("read_lib", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &cut);
-	Cmd *readNlCmd = new ReadNlCmd("read_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &cut);
-	Cmd *setFaultTypeCmd = new SetFaultTypeCmd("set_fault_type", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K);
-	Cmd *buildCirCmd = new BuildCircuitCmd("build_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &cut);
-	Cmd *reportNlCmd = new ReportNetlistCmd("report_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K);
+	Cmd *readLibCmd = new ReadLibCmd("read_lib", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W, &cut);
+	Cmd *readNlCmd = new ReadNlCmd("read_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W, &cut);
+	Cmd *setFaultTypeCmd = new SetFaultTypeCmd("set_fault_type", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W);
+	Cmd *buildCirCmd = new BuildCircuitCmd("build_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W, &cut);
+	Cmd *reportNlCmd = new ReportNetlistCmd("report_netlist", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W);
 	cmdMgr.regCmd("SETUP", readLibCmd);
 	cmdMgr.regCmd("SETUP", readNlCmd);
 	cmdMgr.regCmd("SETUP", setFaultTypeCmd);
@@ -217,12 +231,12 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_
 	cmdMgr.regCmd("SETUP", reportNlCmd);
 
 	// ATPG commands
-	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &cut);
-	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &cut);
-	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K);
-	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &cut);
-	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K);
-	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K);
+	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W, &cut);
+	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W, &cut);
+	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W);
+	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W, &cut);
+	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W);
+	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_V, &fanMgr_W);
 	cmdMgr.regCmd("ATPG", readPatCmd);
 	cmdMgr.regCmd("ATPG", addFaultCmd);
 	cmdMgr.regCmd("ATPG", reportFaultCmd);

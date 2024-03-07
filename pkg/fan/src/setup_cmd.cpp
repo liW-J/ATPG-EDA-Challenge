@@ -15,7 +15,7 @@ using namespace IntfNs;
 using namespace CoreNs;
 using namespace FanNs;
 
-ReadLibCmd::ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut) : Cmd(name)
+ReadLibCmd::ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -28,6 +28,19 @@ ReadLibCmd::ReadLibCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr
 	fanMgr_I_ = fanMgr_I;
 	fanMgr_J_ = fanMgr_J;
 	fanMgr_K_ = fanMgr_K;
+	fanMgr_L_ = fanMgr_L;
+	fanMgr_M_ = fanMgr_M;
+	fanMgr_N_ = fanMgr_N;
+	fanMgr_O_ = fanMgr_O;
+	fanMgr_P_ = fanMgr_P;
+	fanMgr_Q_ = fanMgr_Q;
+	fanMgr_R_ = fanMgr_R;
+	fanMgr_S_ = fanMgr_S;
+	fanMgr_T_ = fanMgr_T;
+	fanMgr_U_ = fanMgr_U;
+	fanMgr_V_ = fanMgr_V;
+	fanMgr_W_ = fanMgr_W;
+	fanMgr_X_ = fanMgr_X;
 	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("read mentor technology library");
@@ -65,6 +78,19 @@ bool ReadLibCmd::exec(const std::vector<std::string> &argv)
 
 	 switch (cut_)
 	{
+	case 24:exec_once(fanMgr_X_);
+	case 23:exec_once(fanMgr_W_);
+	case 22:exec_once(fanMgr_V_);
+	case 21:exec_once(fanMgr_U_);
+	case 20:exec_once(fanMgr_T_);
+	case 19:exec_once(fanMgr_S_);
+	case 18:exec_once(fanMgr_R_);
+	case 17:exec_once(fanMgr_Q_);
+	case 16:exec_once(fanMgr_P_);
+	case 15:exec_once(fanMgr_O_);
+	case 14:exec_once(fanMgr_N_);
+	case 13:exec_once(fanMgr_M_);
+	case 12:exec_once(fanMgr_L_);
 	case 11:exec_once(fanMgr_K_);
 	case 10:exec_once(fanMgr_J_);
 	case 9:exec_once(fanMgr_I_);
@@ -132,7 +158,7 @@ bool ReadLibCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-ReadNlCmd::ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut) : Cmd(name)
+ReadNlCmd::ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -145,6 +171,19 @@ ReadNlCmd::ReadNlCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B
 	fanMgr_I_ = fanMgr_I;
 	fanMgr_J_ = fanMgr_J;
 	fanMgr_K_ = fanMgr_K;
+	fanMgr_L_ = fanMgr_L;
+	fanMgr_M_ = fanMgr_M;
+	fanMgr_N_ = fanMgr_N;
+	fanMgr_O_ = fanMgr_O;
+	fanMgr_P_ = fanMgr_P;
+	fanMgr_Q_ = fanMgr_Q;
+	fanMgr_R_ = fanMgr_R;
+	fanMgr_S_ = fanMgr_S;
+	fanMgr_T_ = fanMgr_T;
+	fanMgr_U_ = fanMgr_U;
+	fanMgr_V_ = fanMgr_V;
+	fanMgr_W_ = fanMgr_W;
+	fanMgr_X_ = fanMgr_X;
 	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("read verilog gate level netlist");
@@ -182,6 +221,19 @@ bool ReadNlCmd::exec(const std::vector<std::string> &argv)
 
 	switch (cut_)
 	{
+	case 24:exec_once(fanMgr_X_);
+	case 23:exec_once(fanMgr_W_);
+	case 22:exec_once(fanMgr_V_);
+	case 21:exec_once(fanMgr_U_);
+	case 20:exec_once(fanMgr_T_);
+	case 19:exec_once(fanMgr_S_);
+	case 18:exec_once(fanMgr_R_);
+	case 17:exec_once(fanMgr_Q_);
+	case 16:exec_once(fanMgr_P_);
+	case 15:exec_once(fanMgr_O_);
+	case 14:exec_once(fanMgr_N_);
+	case 13:exec_once(fanMgr_M_);
+	case 12:exec_once(fanMgr_L_);
 	case 11:exec_once(fanMgr_K_);
 	case 10:exec_once(fanMgr_J_);
 	case 9:exec_once(fanMgr_I_);
@@ -255,7 +307,7 @@ bool ReadNlCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-SetFaultTypeCmd::SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K) : Cmd(name)
+SetFaultTypeCmd::SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -268,6 +320,19 @@ SetFaultTypeCmd::SetFaultTypeCmd(const std::string &name, FanMgr *fanMgr_A, FanM
 	fanMgr_I_ = fanMgr_I;
 	fanMgr_J_ = fanMgr_J;
 	fanMgr_K_ = fanMgr_K;
+	fanMgr_L_ = fanMgr_L;
+	fanMgr_M_ = fanMgr_M;
+	fanMgr_N_ = fanMgr_N;
+	fanMgr_O_ = fanMgr_O;
+	fanMgr_P_ = fanMgr_P;
+	fanMgr_Q_ = fanMgr_Q;
+	fanMgr_R_ = fanMgr_R;
+	fanMgr_S_ = fanMgr_S;
+	fanMgr_T_ = fanMgr_T;
+	fanMgr_U_ = fanMgr_U;
+	fanMgr_V_ = fanMgr_V;
+	fanMgr_W_ = fanMgr_W;
+	fanMgr_X_ = fanMgr_X;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("set fault type");
 	optMgr_.setDes("set fault type. Currently supports stuck-at fault and transition delay fault");
@@ -308,6 +373,20 @@ bool SetFaultTypeCmd::exec(const std::vector<std::string> &argv)
 	exec_once(fanMgr_I_);
 	exec_once(fanMgr_J_);
 	exec_once(fanMgr_K_);
+	exec_once(fanMgr_L_);
+	exec_once(fanMgr_M_);
+	exec_once(fanMgr_N_);
+	exec_once(fanMgr_O_);
+	exec_once(fanMgr_P_);
+	exec_once(fanMgr_Q_);
+	exec_once(fanMgr_R_);
+	exec_once(fanMgr_S_);
+	exec_once(fanMgr_T_);
+	exec_once(fanMgr_U_);
+	exec_once(fanMgr_V_);
+	exec_once(fanMgr_W_);
+	exec_once(fanMgr_X_);
+
 
 
 
@@ -346,7 +425,7 @@ bool SetFaultTypeCmd::exec_once(FanMgr *fanMgr){
 
 }
 
-ReportNetlistCmd::ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K) : Cmd(name)
+ReportNetlistCmd::ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -359,6 +438,19 @@ ReportNetlistCmd::ReportNetlistCmd(const std::string &name, FanMgr *fanMgr_A, Fa
 	fanMgr_I_ = fanMgr_I;
 	fanMgr_J_ = fanMgr_J;
 	fanMgr_K_ = fanMgr_K;
+	fanMgr_L_ = fanMgr_L;
+	fanMgr_M_ = fanMgr_M;
+	fanMgr_N_ = fanMgr_N;
+	fanMgr_O_ = fanMgr_O;
+	fanMgr_P_ = fanMgr_P;
+	fanMgr_Q_ = fanMgr_Q;
+	fanMgr_R_ = fanMgr_R;
+	fanMgr_S_ = fanMgr_S;
+	fanMgr_T_ = fanMgr_T;
+	fanMgr_U_ = fanMgr_U;
+	fanMgr_V_ = fanMgr_V;
+	fanMgr_W_ = fanMgr_W;
+	fanMgr_X_ = fanMgr_X;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("report netlist");
 	optMgr_.setDes("report netlist information");
@@ -437,7 +529,7 @@ bool ReportNetlistCmd::exec_once(FanMgr *fanMgr)
 	return true;
 }
 
-BuildCircuitCmd::BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, int *cut) : Cmd(name)
+BuildCircuitCmd::BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -450,6 +542,19 @@ BuildCircuitCmd::BuildCircuitCmd(const std::string &name, FanMgr *fanMgr_A, FanM
 	fanMgr_I_ = fanMgr_I;
 	fanMgr_J_ = fanMgr_J;
 	fanMgr_K_ = fanMgr_K;
+	fanMgr_L_ = fanMgr_L;
+	fanMgr_M_ = fanMgr_M;
+	fanMgr_N_ = fanMgr_N;
+	fanMgr_O_ = fanMgr_O;
+	fanMgr_P_ = fanMgr_P;
+	fanMgr_Q_ = fanMgr_Q;
+	fanMgr_R_ = fanMgr_R;
+	fanMgr_S_ = fanMgr_S;
+	fanMgr_T_ = fanMgr_T;
+	fanMgr_U_ = fanMgr_U;
+	fanMgr_V_ = fanMgr_V;
+	fanMgr_W_ = fanMgr_W;
+	fanMgr_X_ = fanMgr_X;
 	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("build circuit");
@@ -478,6 +583,19 @@ bool BuildCircuitCmd::exec(const std::vector<std::string> &argv)
 
 	 switch (cut_)
 	{
+	case 24:exec_once(fanMgr_X_);
+	case 23:exec_once(fanMgr_W_);
+	case 22:exec_once(fanMgr_V_);
+	case 21:exec_once(fanMgr_U_);
+	case 20:exec_once(fanMgr_T_);
+	case 19:exec_once(fanMgr_S_);
+	case 18:exec_once(fanMgr_R_);
+	case 17:exec_once(fanMgr_Q_);
+	case 16:exec_once(fanMgr_P_);
+	case 15:exec_once(fanMgr_O_);
+	case 14:exec_once(fanMgr_N_);
+	case 13:exec_once(fanMgr_M_);
+	case 12:exec_once(fanMgr_L_);
 	case 11:exec_once(fanMgr_K_);
 	case 10:exec_once(fanMgr_J_);
 	case 9:exec_once(fanMgr_I_);
