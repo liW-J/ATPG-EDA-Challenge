@@ -29,7 +29,7 @@ using namespace CoreNs;
 //            ]
 // Date       [ Ver. 2.0 last modified 2023/01/05 ]
 // **************************************************************************
-void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE, int cut)
+void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE, int *cut)
 {
 	bool useFC = true; // Should be able to set on or off in script like test compression.
 	// int begin, end;
@@ -313,13 +313,19 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 	}
 	std::vector<Fault>::const_iterator begin,end;
 	int fault_size = extractedFaults_temp_.size();
-	
+	if(fault_size < 70000) *cut = 3;
+	if(fault_size >= 70000 && fault_size < 100000) *cut = 4;
+	if(fault_size >= 100000 && fault_size < 250000) *cut = 10;
+	if(fault_size >= 250000 && fault_size < 300000) *cut = 15;
+	if(fault_size >= 300000 && fault_size < 500000) *cut = 20;
+	if(fault_size >= 500000 ) *cut = 24;
+
 	//initialize FaultList length 
-	if (fanMgrTYPE < cut-1){
-		begin = extractedFaults_temp_.begin() + (fault_size)/cut*fanMgrTYPE ; 
-		end = extractedFaults_temp_.begin() + (fault_size)/cut*(fanMgrTYPE + 1);
-	}else if(fanMgrTYPE == cut-1){
-		begin = extractedFaults_temp_.begin() + (fault_size)/cut*fanMgrTYPE ; 
+	if (fanMgrTYPE < (*cut)-1){
+		begin = extractedFaults_temp_.begin() + (fault_size)/(*cut)*fanMgrTYPE ; 
+		end = extractedFaults_temp_.begin() + (fault_size)/(*cut)*(fanMgrTYPE + 1);
+	}else if(fanMgrTYPE == (*cut)-1){
+		begin = extractedFaults_temp_.begin() + (fault_size)/(*cut)*fanMgrTYPE ; 
 		end = extractedFaults_temp_.end() ;
 	}else{begin = extractedFaults_temp_.begin(); end = extractedFaults_temp_.begin();}
 

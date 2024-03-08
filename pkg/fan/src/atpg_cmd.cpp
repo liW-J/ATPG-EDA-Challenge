@@ -183,7 +183,7 @@ AddFaultCmd::AddFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanM
 	fanMgr_V_ = fanMgr_V;
 	fanMgr_W_ = fanMgr_W;
 	fanMgr_X_ = fanMgr_X;
-	cut_ = *cut;
+	cut_ = cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("add faults");
 	optMgr_.setDes("adds faults either by extract from circuit or from file");
@@ -217,7 +217,11 @@ bool AddFaultCmd::exec(const std::vector<std::string> &argv)
 		return true;
 	}
 
-	switch (cut_)
+	exec_once(fanMgr_A_, 0, cut_);
+
+	printf("cut = %d\n\n", *cut_);
+
+	switch (*cut_)
 	{
 	case 24:exec_once(fanMgr_X_, 23, cut_);
 	case 23:exec_once(fanMgr_W_, 22, cut_);
@@ -242,14 +246,14 @@ bool AddFaultCmd::exec(const std::vector<std::string> &argv)
 	case 4:exec_once(fanMgr_D_, 3, cut_);
 	case 3:exec_once(fanMgr_C_, 2, cut_);
 	case 2:exec_once(fanMgr_B_, 1, cut_);
-	case 1:exec_once(fanMgr_A_, 0, cut_);
+	// case 1:exec_once(fanMgr_A_, 0, cut_);
 	default:break;
 	}
 	
 	return true;
 }
 
-bool AddFaultCmd::exec_once(FanMgr *fanMgr, int fanMgrTYPE, int cut){
+bool AddFaultCmd::exec_once(FanMgr *fanMgr, int fanMgrTYPE, int *cut){
 	fanMgr_ = fanMgr;
 	if (!fanMgr_->cir)
 	{
@@ -263,6 +267,7 @@ bool AddFaultCmd::exec_once(FanMgr *fanMgr, int fanMgrTYPE, int cut){
 	}
 
 	fanMgr_->fListExtract->extractFaultFromCircuit(fanMgr_->cir, fanMgrTYPE, cut);
+
 
 	// add all faults
 	if (optMgr_.isFlagSet("a"))
@@ -294,7 +299,7 @@ void AddFaultCmd::addAllFault()
 	std::cout << "    " << (double)stat.vmSize / 1024.0 << " MB\n";
 }
 
-ReportFaultCmd::ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X) : Cmd(name)
+ReportFaultCmd::ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X, int *cut) : Cmd(name)
 {
 	fanMgr_A_ = fanMgr_A;
 	fanMgr_B_ = fanMgr_B;
@@ -320,6 +325,7 @@ ReportFaultCmd::ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr
 	fanMgr_V_ = fanMgr_V;
 	fanMgr_W_ = fanMgr_W;
 	fanMgr_X_ = fanMgr_X;
+	cut_ = *cut;
 	optMgr_.setName(name);
 	optMgr_.setShortDes("report fault");
 	optMgr_.setDes("report fault information");
@@ -406,7 +412,9 @@ bool ReportFaultCmd::exec(const std::vector<std::string> &argv)
 			std::cout << "\n";
 			break;
 	}
-	std::cout << "#    number of faults: " << fanMgr_A_->fListExtract->faultsInCircuit_.size()+fanMgr_B_->fListExtract->faultsInCircuit_.size()+fanMgr_C_->fListExtract->faultsInCircuit_.size()+fanMgr_D_->fListExtract->faultsInCircuit_.size()+fanMgr_E_->fListExtract->faultsInCircuit_.size()+fanMgr_F_->fListExtract->faultsInCircuit_.size()+fanMgr_G_->fListExtract->faultsInCircuit_.size()+fanMgr_H_->fListExtract->faultsInCircuit_.size()+fanMgr_I_->fListExtract->faultsInCircuit_.size()+fanMgr_J_->fListExtract->faultsInCircuit_.size()+fanMgr_K_->fListExtract->faultsInCircuit_.size()+fanMgr_L_->fListExtract->faultsInCircuit_.size()+fanMgr_M_->fListExtract->faultsInCircuit_.size()+fanMgr_N_->fListExtract->faultsInCircuit_.size()+fanMgr_O_->fListExtract->faultsInCircuit_.size()+fanMgr_P_->fListExtract->faultsInCircuit_.size()+fanMgr_Q_->fListExtract->faultsInCircuit_.size()+fanMgr_R_->fListExtract->faultsInCircuit_.size()+fanMgr_S_->fListExtract->faultsInCircuit_.size()+fanMgr_T_->fListExtract->faultsInCircuit_.size()+fanMgr_U_->fListExtract->faultsInCircuit_.size()+fanMgr_V_->fListExtract->faultsInCircuit_.size()+fanMgr_W_->fListExtract->faultsInCircuit_.size()+fanMgr_X_->fListExtract->faultsInCircuit_.size();
+
+	int fault_size_ = fanMgr_A_->fListExtract->faultsInCircuit_.size()+fanMgr_B_->fListExtract->faultsInCircuit_.size()+fanMgr_C_->fListExtract->faultsInCircuit_.size()+fanMgr_D_->fListExtract->faultsInCircuit_.size()+fanMgr_E_->fListExtract->faultsInCircuit_.size()+fanMgr_F_->fListExtract->faultsInCircuit_.size()+fanMgr_G_->fListExtract->faultsInCircuit_.size()+fanMgr_H_->fListExtract->faultsInCircuit_.size()+fanMgr_I_->fListExtract->faultsInCircuit_.size()+fanMgr_J_->fListExtract->faultsInCircuit_.size()+fanMgr_K_->fListExtract->faultsInCircuit_.size()+fanMgr_L_->fListExtract->faultsInCircuit_.size()+fanMgr_M_->fListExtract->faultsInCircuit_.size()+fanMgr_N_->fListExtract->faultsInCircuit_.size()+fanMgr_O_->fListExtract->faultsInCircuit_.size()+fanMgr_P_->fListExtract->faultsInCircuit_.size()+fanMgr_Q_->fListExtract->faultsInCircuit_.size()+fanMgr_R_->fListExtract->faultsInCircuit_.size()+fanMgr_S_->fListExtract->faultsInCircuit_.size()+fanMgr_T_->fListExtract->faultsInCircuit_.size()+fanMgr_U_->fListExtract->faultsInCircuit_.size()+fanMgr_V_->fListExtract->faultsInCircuit_.size()+fanMgr_W_->fListExtract->faultsInCircuit_.size()+fanMgr_X_->fListExtract->faultsInCircuit_.size();
+	std::cout << "#    number of faults: " << fault_size_;
 	std::cerr << fanMgr_A_->fListExtract->faultsInCircuit_.size() << "\n";
 	std::cerr << fanMgr_B_->fListExtract->faultsInCircuit_.size() << "\n";
 	std::cerr << fanMgr_C_->fListExtract->faultsInCircuit_.size() << "\n";
@@ -434,30 +442,32 @@ bool ReportFaultCmd::exec(const std::vector<std::string> &argv)
 	std::cout << "\n";
 	std::cout << "#    type    code    pin (cell)\n";
 	std::cout << "#    ----    ----    ----------------------------------\n";	
-	ShowFaultList(fanMgr_A_, stateSet, state);
-	ShowFaultList(fanMgr_B_, stateSet, state);
-	ShowFaultList(fanMgr_C_, stateSet, state);
-	ShowFaultList(fanMgr_D_, stateSet, state);
-	ShowFaultList(fanMgr_E_, stateSet, state);
-	ShowFaultList(fanMgr_F_, stateSet, state);
-	ShowFaultList(fanMgr_G_, stateSet, state);
-	ShowFaultList(fanMgr_H_, stateSet, state);
-	ShowFaultList(fanMgr_I_, stateSet, state);
-	ShowFaultList(fanMgr_J_, stateSet, state);
-	ShowFaultList(fanMgr_K_, stateSet, state);
-	ShowFaultList(fanMgr_L_, stateSet, state);
-	ShowFaultList(fanMgr_M_, stateSet, state);
-	ShowFaultList(fanMgr_N_, stateSet, state);
-	ShowFaultList(fanMgr_O_, stateSet, state);
-	ShowFaultList(fanMgr_P_, stateSet, state);
-	ShowFaultList(fanMgr_Q_, stateSet, state);
-	ShowFaultList(fanMgr_R_, stateSet, state);
-	ShowFaultList(fanMgr_S_, stateSet, state);
-	ShowFaultList(fanMgr_T_, stateSet, state);
-	ShowFaultList(fanMgr_U_, stateSet, state);
-	ShowFaultList(fanMgr_V_, stateSet, state);
-	ShowFaultList(fanMgr_W_, stateSet, state);
-	ShowFaultList(fanMgr_X_, stateSet, state);
+	
+	
+	if( cut_ > 0 ) ShowFaultList(fanMgr_A_, stateSet, state);
+	if( cut_ > 1 ) ShowFaultList(fanMgr_B_, stateSet, state);
+	if( cut_ > 2 ) ShowFaultList(fanMgr_C_, stateSet, state);
+	if( cut_ > 3 ) ShowFaultList(fanMgr_D_, stateSet, state);
+	if( cut_ > 4 ) ShowFaultList(fanMgr_E_, stateSet, state);
+	if( cut_ > 5 ) ShowFaultList(fanMgr_F_, stateSet, state);
+	if( cut_ > 6 ) ShowFaultList(fanMgr_G_, stateSet, state);
+	if( cut_ > 7 ) ShowFaultList(fanMgr_H_, stateSet, state);
+	if( cut_ > 8 ) ShowFaultList(fanMgr_I_, stateSet, state);
+	if( cut_ > 9 ) ShowFaultList(fanMgr_J_, stateSet, state);
+	if( cut_ > 10 ) ShowFaultList(fanMgr_K_, stateSet, state);
+	if( cut_ > 11 ) ShowFaultList(fanMgr_L_, stateSet, state);
+	if( cut_ > 12 ) ShowFaultList(fanMgr_M_, stateSet, state);
+	if( cut_ > 13 ) ShowFaultList(fanMgr_N_, stateSet, state);
+	if( cut_ > 14 ) ShowFaultList(fanMgr_O_, stateSet, state);
+	if( cut_ > 15 ) ShowFaultList(fanMgr_P_, stateSet, state);
+	if( cut_ > 16 ) ShowFaultList(fanMgr_Q_, stateSet, state);
+	if( cut_ > 17 ) ShowFaultList(fanMgr_R_, stateSet, state);
+	if( cut_ > 18 ) ShowFaultList(fanMgr_S_, stateSet, state);
+	if( cut_ > 19 ) ShowFaultList(fanMgr_T_, stateSet, state);
+	if( cut_ > 20 ) ShowFaultList(fanMgr_U_, stateSet, state);
+	if( cut_ > 21 ) ShowFaultList(fanMgr_V_, stateSet, state);
+	if( cut_ > 22 ) ShowFaultList(fanMgr_W_, stateSet, state);
+	if( cut_ > 23 ) ShowFaultList(fanMgr_X_, stateSet, state);
 
 
 	std::cout << "\n";

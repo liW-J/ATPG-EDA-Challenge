@@ -61,7 +61,7 @@ public:
 
 private:
     void   addAllFault();
-    bool exec_once(FanMgr *fanMgr, int fanMgrTYPE, int cut);
+    bool exec_once(FanMgr *fanMgr, int fanMgrTYPE, int *cut);
     FanMgr *fanMgr_A_;
     FanMgr *fanMgr_B_;
     FanMgr *fanMgr_C_;
@@ -87,12 +87,12 @@ private:
     FanMgr *fanMgr_W_;
     FanMgr *fanMgr_X_;
     FanMgr *fanMgr_;
-    int cut_;
+    int *cut_;
 };
 
 class ReportFaultCmd : public CommonNs::Cmd {
 public:
-         ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X); 
+         ReportFaultCmd(const std::string &name, FanMgr *fanMgr_A, FanMgr *fanMgr_B, FanMgr *fanMgr_C, FanMgr *fanMgr_D, FanMgr *fanMgr_E, FanMgr *fanMgr_F, FanMgr *fanMgr_G, FanMgr *fanMgr_H, FanMgr *fanMgr_I, FanMgr *fanMgr_J, FanMgr *fanMgr_K, FanMgr *fanMgr_L, FanMgr *fanMgr_M, FanMgr *fanMgr_N, FanMgr *fanMgr_O, FanMgr *fanMgr_P, FanMgr *fanMgr_Q, FanMgr *fanMgr_R, FanMgr *fanMgr_S, FanMgr *fanMgr_T, FanMgr *fanMgr_U, FanMgr *fanMgr_V, FanMgr *fanMgr_W, FanMgr *fanMgr_X, int *cut); 
          ~ReportFaultCmd();
          
 
@@ -125,6 +125,7 @@ private:
     FanMgr *fanMgr_W_;
     FanMgr *fanMgr_X_;
     FanMgr *fanMgr_;
+    int cut_;
 };
 
 class ReportCircuitCmd : public CommonNs::Cmd {

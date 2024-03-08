@@ -66,7 +66,8 @@ int main(int argc, char **argv)
 	FanMgr fanMgr_W;
 	FanMgr fanMgr_X;
 
-	int cut = 2;
+	int cut = 24;
+	
 	CmdMgr cmdMgr;
 	initCmd(cmdMgr, fanMgr_A, fanMgr_B, fanMgr_C, fanMgr_D, fanMgr_E, fanMgr_F, fanMgr_G, fanMgr_H, fanMgr_I, fanMgr_J, fanMgr_K, fanMgr_L, fanMgr_M, fanMgr_N, fanMgr_O, fanMgr_P, fanMgr_Q, fanMgr_R, fanMgr_S, fanMgr_T, fanMgr_U, fanMgr_V, fanMgr_W, fanMgr_X, cut);
 	CmdMgr::Result res = CmdMgr::SUCCESS;
@@ -233,7 +234,7 @@ void initCmd(CmdMgr &cmdMgr, FanMgr &fanMgr_A, FanMgr &fanMgr_B, FanMgr &fanMgr_
 	// ATPG commands
 	Cmd *readPatCmd = new ReadPatCmd("read_pattern", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X, &cut);
 	Cmd *addFaultCmd = new AddFaultCmd("add_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X, &cut);
-	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X);
+	Cmd *reportFaultCmd = new ReportFaultCmd("report_fault", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X, &cut);
 	Cmd *runFaultSimCmd = new RunFaultSimCmd("run_fault_sim", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X, &cut);
 	Cmd *reportCircuitCmd = new ReportCircuitCmd("report_circuit", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X);
 	Cmd *reportStatsCmd = new ReportStatsCmd("report_statistics", &fanMgr_A, &fanMgr_B, &fanMgr_C, &fanMgr_D, &fanMgr_E, &fanMgr_F, &fanMgr_G, &fanMgr_H, &fanMgr_I, &fanMgr_J, &fanMgr_K, &fanMgr_L, &fanMgr_M, &fanMgr_N, &fanMgr_O, &fanMgr_P, &fanMgr_Q, &fanMgr_R, &fanMgr_S, &fanMgr_T, &fanMgr_U, &fanMgr_V, &fanMgr_W, &fanMgr_X);
