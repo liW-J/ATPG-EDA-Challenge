@@ -407,6 +407,30 @@ bool ReportFaultCmd::exec(const std::vector<std::string> &argv)
 			break;
 	}
 	std::cout << "#    number of faults: " << fanMgr_A_->fListExtract->faultsInCircuit_.size()+fanMgr_B_->fListExtract->faultsInCircuit_.size()+fanMgr_C_->fListExtract->faultsInCircuit_.size()+fanMgr_D_->fListExtract->faultsInCircuit_.size()+fanMgr_E_->fListExtract->faultsInCircuit_.size()+fanMgr_F_->fListExtract->faultsInCircuit_.size()+fanMgr_G_->fListExtract->faultsInCircuit_.size()+fanMgr_H_->fListExtract->faultsInCircuit_.size()+fanMgr_I_->fListExtract->faultsInCircuit_.size()+fanMgr_J_->fListExtract->faultsInCircuit_.size()+fanMgr_K_->fListExtract->faultsInCircuit_.size()+fanMgr_L_->fListExtract->faultsInCircuit_.size()+fanMgr_M_->fListExtract->faultsInCircuit_.size()+fanMgr_N_->fListExtract->faultsInCircuit_.size()+fanMgr_O_->fListExtract->faultsInCircuit_.size()+fanMgr_P_->fListExtract->faultsInCircuit_.size()+fanMgr_Q_->fListExtract->faultsInCircuit_.size()+fanMgr_R_->fListExtract->faultsInCircuit_.size()+fanMgr_S_->fListExtract->faultsInCircuit_.size()+fanMgr_T_->fListExtract->faultsInCircuit_.size()+fanMgr_U_->fListExtract->faultsInCircuit_.size()+fanMgr_V_->fListExtract->faultsInCircuit_.size()+fanMgr_W_->fListExtract->faultsInCircuit_.size()+fanMgr_X_->fListExtract->faultsInCircuit_.size();
+	std::cerr << fanMgr_A_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_B_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_C_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_D_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_E_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_F_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_G_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_H_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_I_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_J_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_K_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_L_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_M_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_N_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_O_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_P_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_Q_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_R_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_S_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_T_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_U_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_V_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_W_->fListExtract->faultsInCircuit_.size() << "\n";
+	std::cerr << fanMgr_X_->fListExtract->faultsInCircuit_.size() << "\n";
 	std::cout << "\n";
 	std::cout << "#    type    code    pin (cell)\n";
 	std::cout << "#    ----    ----    ----------------------------------\n";	
@@ -765,7 +789,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 0){
 			fanMgr_A_->sim = new Simulator(*fanMgr_A_->cir);
 			fanMgr_A_->tmusg.periodStart();
-			fanMgr_A_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_A_->pcoll, fanMgr_A_->fListExtract);
+			fanMgr_A_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_A_->pcoll, fanMgr_A_->fListExtract);
 		}
 		printf("END:A-----------\n");
 		#pragma omp section
@@ -773,7 +797,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 1){
 			fanMgr_B_->sim = new Simulator(*fanMgr_B_->cir);
 			fanMgr_B_->tmusg.periodStart();
-			fanMgr_B_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_B_->pcoll, fanMgr_B_->fListExtract);
+			fanMgr_B_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_B_->pcoll, fanMgr_B_->fListExtract);
 		}
 		printf("END:B-----------\n");
 		#pragma omp section
@@ -781,7 +805,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 2){
 			fanMgr_C_->sim = new Simulator(*fanMgr_C_->cir);
 			fanMgr_C_->tmusg.periodStart();
-			fanMgr_C_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_C_->pcoll, fanMgr_C_->fListExtract);
+			fanMgr_C_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_C_->pcoll, fanMgr_C_->fListExtract);
 		}
 		printf("END:C-----------\n");
 		#pragma omp section
@@ -789,7 +813,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 3){
 			fanMgr_D_->sim = new Simulator(*fanMgr_D_->cir);
 			fanMgr_D_->tmusg.periodStart();
-			fanMgr_D_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_D_->pcoll, fanMgr_D_->fListExtract);
+			fanMgr_D_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_D_->pcoll, fanMgr_D_->fListExtract);
 		}
 		printf("END:D-----------\n");
 		#pragma omp section
@@ -797,7 +821,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 4){
 			fanMgr_E_->sim = new Simulator(*fanMgr_E_->cir);
 			fanMgr_E_->tmusg.periodStart();
-			fanMgr_E_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_E_->pcoll, fanMgr_E_->fListExtract);
+			fanMgr_E_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_E_->pcoll, fanMgr_E_->fListExtract);
 		}
 		printf("END:E-----------\n");
 		#pragma omp section
@@ -813,7 +837,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 6){
 			fanMgr_G_->sim = new Simulator(*fanMgr_G_->cir);
 			fanMgr_G_->tmusg.periodStart();
-			fanMgr_G_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_G_->pcoll, fanMgr_G_->fListExtract);
+			fanMgr_G_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_G_->pcoll, fanMgr_G_->fListExtract);
 		}
 		printf("END:G-----------\n");
 		#pragma omp section
@@ -821,7 +845,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 7){
 			fanMgr_H_->sim = new Simulator(*fanMgr_H_->cir);
 			fanMgr_H_->tmusg.periodStart();
-			fanMgr_H_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_H_->pcoll, fanMgr_H_->fListExtract);
+			fanMgr_H_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_H_->pcoll, fanMgr_H_->fListExtract);
 		}
 		printf("END:H-----------\n");
 		#pragma omp section
@@ -829,7 +853,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 8){
 			fanMgr_I_->sim = new Simulator(*fanMgr_I_->cir);
 			fanMgr_I_->tmusg.periodStart();
-			fanMgr_I_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_I_->pcoll, fanMgr_I_->fListExtract);
+			fanMgr_I_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_I_->pcoll, fanMgr_I_->fListExtract);
 		}
 		printf("END:I-----------\n");
 		#pragma omp section
@@ -837,7 +861,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 9){
 			fanMgr_J_->sim = new Simulator(*fanMgr_J_->cir);
 			fanMgr_J_->tmusg.periodStart();
-			fanMgr_J_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_J_->pcoll, fanMgr_J_->fListExtract);
+			fanMgr_J_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_J_->pcoll, fanMgr_J_->fListExtract);
 		}
 		printf("END:J-----------\n");
 		#pragma omp section
@@ -845,7 +869,7 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 10){
 			fanMgr_K_->sim = new Simulator(*fanMgr_K_->cir);
 			fanMgr_K_->tmusg.periodStart();
-			fanMgr_K_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_K_->pcoll, fanMgr_K_->fListExtract);
+			fanMgr_K_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_K_->pcoll, fanMgr_K_->fListExtract);
 		}
 		printf("END:K-----------\n");
 		#pragma omp section
@@ -853,103 +877,103 @@ bool RunFaultSimCmd::exec(const std::vector<std::string> &argv)
 		if(cut_ > 11){
 			fanMgr_L_->sim = new Simulator(*fanMgr_L_->cir);
 			fanMgr_L_->tmusg.periodStart();
-			fanMgr_L_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_L_->pcoll, fanMgr_L_->fListExtract);
+			fanMgr_L_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_L_->pcoll, fanMgr_L_->fListExtract);
 		}
 		printf("END:L-----------\n");
 		#pragma omp section
 		printf("BEGIN:M-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 12){
 			fanMgr_M_->sim = new Simulator(*fanMgr_M_->cir);
 			fanMgr_M_->tmusg.periodStart();
-			fanMgr_M_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_M_->pcoll, fanMgr_M_->fListExtract);
+			fanMgr_M_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_M_->pcoll, fanMgr_M_->fListExtract);
 		}
 		printf("END:M-----------\n");
 		#pragma omp section
 		printf("BEGIN:N-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 13){
 			fanMgr_N_->sim = new Simulator(*fanMgr_N_->cir);
 			fanMgr_N_->tmusg.periodStart();
-			fanMgr_N_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_N_->pcoll, fanMgr_N_->fListExtract);
+			fanMgr_N_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_N_->pcoll, fanMgr_N_->fListExtract);
 		}
 		printf("END:N-----------\n");
 		#pragma omp section
 		printf("BEGIN:O-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 14){
 			fanMgr_O_->sim = new Simulator(*fanMgr_O_->cir);
 			fanMgr_O_->tmusg.periodStart();
-			fanMgr_O_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_O_->pcoll, fanMgr_O_->fListExtract);
+			fanMgr_O_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_O_->pcoll, fanMgr_O_->fListExtract);
 		}
 		printf("END:O-----------\n");
 		#pragma omp section
 		printf("BEGIN:P-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 15){
 			fanMgr_P_->sim = new Simulator(*fanMgr_P_->cir);
 			fanMgr_P_->tmusg.periodStart();
-			fanMgr_P_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_P_->pcoll, fanMgr_P_->fListExtract);
+			fanMgr_P_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_P_->pcoll, fanMgr_P_->fListExtract);
 		}
 		printf("END:P-----------\n");
 		#pragma omp section
 		printf("BEGIN:Q-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 16){
 			fanMgr_Q_->sim = new Simulator(*fanMgr_Q_->cir);
 			fanMgr_Q_->tmusg.periodStart();
-			fanMgr_Q_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_Q_->pcoll, fanMgr_Q_->fListExtract);
+			fanMgr_Q_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_Q_->pcoll, fanMgr_Q_->fListExtract);
 		}
 		printf("END:Q-----------\n");
 		#pragma omp section
 		printf("BEGIN:R-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 17){
 			fanMgr_R_->sim = new Simulator(*fanMgr_R_->cir);
 			fanMgr_R_->tmusg.periodStart();
-			fanMgr_R_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_R_->pcoll, fanMgr_R_->fListExtract);
+			fanMgr_R_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_R_->pcoll, fanMgr_R_->fListExtract);
 		}
 		printf("END:R-----------\n");
 		#pragma omp section
 		printf("BEGIN:S-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 18){
 			fanMgr_S_->sim = new Simulator(*fanMgr_S_->cir);
 			fanMgr_S_->tmusg.periodStart();
-			fanMgr_S_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_S_->pcoll, fanMgr_S_->fListExtract);
+			fanMgr_S_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_S_->pcoll, fanMgr_S_->fListExtract);
 		}
 		printf("END:S-----------\n");
 		#pragma omp section
 		printf("BEGIN:T-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 19){
 			fanMgr_T_->sim = new Simulator(*fanMgr_T_->cir);
 			fanMgr_T_->tmusg.periodStart();
-			fanMgr_T_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_T_->pcoll, fanMgr_T_->fListExtract);
+			fanMgr_T_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_T_->pcoll, fanMgr_T_->fListExtract);
 		}
 		printf("END:T-----------\n");
 		#pragma omp section
 		printf("BEGIN:U-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 20){
 			fanMgr_U_->sim = new Simulator(*fanMgr_U_->cir);
 			fanMgr_U_->tmusg.periodStart();
-			fanMgr_U_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_U_->pcoll, fanMgr_U_->fListExtract);
+			fanMgr_U_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_U_->pcoll, fanMgr_U_->fListExtract);
 		}
 		printf("END:U-----------\n");
 		#pragma omp section
 		printf("BEGIN:V-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 21){
 			fanMgr_V_->sim = new Simulator(*fanMgr_V_->cir);
 			fanMgr_V_->tmusg.periodStart();
-			fanMgr_V_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_V_->pcoll, fanMgr_V_->fListExtract);
+			fanMgr_V_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_V_->pcoll, fanMgr_V_->fListExtract);
 		}
 		printf("END:V-----------\n");
 		#pragma omp section
 		printf("BEGIN:W-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 22){
 			fanMgr_W_->sim = new Simulator(*fanMgr_W_->cir);
 			fanMgr_W_->tmusg.periodStart();
-			fanMgr_W_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_W_->pcoll, fanMgr_W_->fListExtract);
+			fanMgr_W_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_W_->pcoll, fanMgr_W_->fListExtract);
 		}
 		printf("END:W-----------\n");
 		#pragma omp section
 		printf("BEGIN:X-----------\n");
-		if(cut_ > 10){
+		if(cut_ > 23){
 			fanMgr_X_->sim = new Simulator(*fanMgr_X_->cir);
 			fanMgr_X_->tmusg.periodStart();
-			fanMgr_X_->sim->parallelPatternFaultSimWithAllPattern(fanMgr_X_->pcoll, fanMgr_X_->fListExtract);
+			fanMgr_X_->sim->parallelFaultFaultSimWithAllPattern(fanMgr_X_->pcoll, fanMgr_X_->fListExtract);
 		}
 		printf("END:X-----------\n");
 	}

@@ -89,6 +89,7 @@ namespace CoreNs
 		std::vector<int> gateIndexToFaultIndex_; // Map gate index to fault list index.
 		std::vector<Fault> uncollapsedFaults_;   // Record faults without fault collapsing, used for adding part of faults for ATPG.
 		std::vector<Fault> extractedFaults_;     // Faults extracted from the circuit.
+		std::vector<Fault> extractedFaults_temp_;     // Faults extracted from the circuit.
 		FaultPtrList faultsInCircuit_;           // Faults used in the ATPG.
 		FAULTLIST_TYPE faultListType_;           // Fault list type.
 	};

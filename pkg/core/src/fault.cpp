@@ -32,12 +32,12 @@ using namespace CoreNs;
 void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE, int cut)
 {
 	bool useFC = true; // Should be able to set on or off in script like test compression.
-	int begin, end;
+	// int begin, end;
 	// Since the function only called once, we don't need to clear faults initially.
 	// Reserve enough space for faults push_back, 10 * circuit->numGate_ is maximum possible faults in a circuit.
 	int reservedSize = 10 * pCircuit->numGate_;
 	uncollapsedFaults_.reserve(reservedSize);
-	extractedFaults_.reserve(reservedSize);
+	extractedFaults_temp_.reserve(reservedSize);
 
 	// Resize gateIndexToFaultIndex to proper size.
 	gateIndexToFaultIndex_.resize(pCircuit->numGate_);
@@ -83,24 +83,15 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 		// Extract faults.
 		if (!useFC) // Without Fault Collapsing.
 		{
-			extractedFaults_.resize(uncollapsedFaults_.size());
-			extractedFaults_.assign(uncollapsedFaults_.begin(), uncollapsedFaults_.end());
+			extractedFaults_temp_.resize(uncollapsedFaults_.size());
+			extractedFaults_temp_.assign(uncollapsedFaults_.begin(), uncollapsedFaults_.end());
 		}
 		else // Simple Equivalent Fault Collapsing.
 		{
 			std::vector<int> SA0Equivalent(pCircuit->numGate_, 1), SA1Equivalent(pCircuit->numGate_, 1); // Used to count the number of equivalent faults.
 			int SA0EquivalentOfInput, SA1EquivalentOfInput; // SA0Equivalent, SA1Equivalent of the input(fanin) gates.
 			
-			//initialize FaultList length 
-			if (fanMgrTYPE < cut-1){
-				begin = (pCircuit->numGate_)/cut*fanMgrTYPE ; 
-				end = (pCircuit->numGate_)/cut*(fanMgrTYPE + 1);
-			}else if(fanMgrTYPE == cut-1){
-				begin = (pCircuit->numGate_)/cut*fanMgrTYPE ; 
-				end = (pCircuit->numGate_);
-			}else{begin = 0; end = 0;}
-			
-			for (int i = begin ; i < end; ++i)
+			for (int i = 0 ; i < pCircuit->numGate_; ++i)
 			{
 				// Adding input faults.
 				switch (pCircuit->circuitGates_[i].gateType_)
@@ -113,7 +104,7 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 						{
 							SA0EquivalentOfInput = SA0Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
 							SA1EquivalentOfInput = SA1Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
-							extractedFaults_.push_back(Fault(i, Fault::SA1, j + 1, SA1EquivalentOfInput));
+							extractedFaults_temp_.push_back(Fault(i, Fault::SA1, j + 1, SA1EquivalentOfInput));
 							SA0Equivalent[i] += SA0EquivalentOfInput;
 						}
 						break;
@@ -125,7 +116,7 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 						{
 							SA0EquivalentOfInput = SA0Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
 							SA1EquivalentOfInput = SA1Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
-							extractedFaults_.push_back(Fault(i, Fault::SA1, j + 1, SA1EquivalentOfInput));
+							extractedFaults_temp_.push_back(Fault(i, Fault::SA1, j + 1, SA1EquivalentOfInput));
 							SA1Equivalent[i] += SA0EquivalentOfInput;
 						}
 						break;
@@ -137,7 +128,7 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 						{
 							SA0EquivalentOfInput = SA0Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
 							SA1EquivalentOfInput = SA1Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
-							extractedFaults_.push_back(Fault(i, Fault::SA0, j + 1, SA0EquivalentOfInput));
+							extractedFaults_temp_.push_back(Fault(i, Fault::SA0, j + 1, SA0EquivalentOfInput));
 							SA1Equivalent[i] += SA1EquivalentOfInput;
 						}
 						break;
@@ -149,7 +140,7 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 						{
 							SA0EquivalentOfInput = SA0Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
 							SA1EquivalentOfInput = SA1Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
-							extractedFaults_.push_back(Fault(i, Fault::SA0, j + 1, SA0EquivalentOfInput));
+							extractedFaults_temp_.push_back(Fault(i, Fault::SA0, j + 1, SA0EquivalentOfInput));
 							SA0Equivalent[i] += SA1EquivalentOfInput;
 						}
 						break;
@@ -174,8 +165,8 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 						{
 							SA0EquivalentOfInput = SA0Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
 							SA1EquivalentOfInput = SA1Equivalent[pCircuit->circuitGates_[i].faninVector_[j]];
-							extractedFaults_.push_back(Fault(i, Fault::SA0, j + 1, SA0EquivalentOfInput));
-							extractedFaults_.push_back(Fault(i, Fault::SA1, j + 1, SA1EquivalentOfInput));
+							extractedFaults_temp_.push_back(Fault(i, Fault::SA0, j + 1, SA0EquivalentOfInput));
+							extractedFaults_temp_.push_back(Fault(i, Fault::SA1, j + 1, SA1EquivalentOfInput));
 						}
 						break;
 				}
@@ -184,8 +175,8 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 				// Add faults with calculated SA0Equivalent, SA1Equivalent and reset them to 1.
 				if (pCircuit->circuitGates_[i].numFO_ > 0 && i < pCircuit->numGate_ - pCircuit->numPPI_)
 				{
-					extractedFaults_.push_back(Fault(i, Fault::SA0, 0, SA0Equivalent[i]));
-					extractedFaults_.push_back(Fault(i, Fault::SA1, 0, SA1Equivalent[i]));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA0, 0, SA0Equivalent[i]));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA1, 0, SA1Equivalent[i]));
 				}
 				SA0Equivalent[i] = 1;
 				SA1Equivalent[i] = 1;
@@ -193,8 +184,8 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 				// if (pCircuit->circuitGates_[i].numFO_ > 1 && i < (pCircuit->numGate_ - pCircuit->numPPI_)) // Not fanout free
 				// {
 				// 	// add faults with calculated SA0_eq, SA1_eq and reset them to 1
-				// 	extractedFaults_.push_back(Fault(i, Fault::SA0, 0, SA0Equivalent[i]));
-				// 	extractedFaults_.push_back(Fault(i, Fault::SA1, 0, SA1Equivalent[i]));
+				// 	extractedFaults_temp_.push_back(Fault(i, Fault::SA0, 0, SA0Equivalent[i]));
+				// 	extractedFaults_temp_.push_back(Fault(i, Fault::SA1, 0, SA1Equivalent[i]));
 				// 	SA0Equivalent[i] = 1;
 				// 	SA1Equivalent[i] = 1;
 				// }
@@ -208,17 +199,17 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 				if (pCircuit->circuitGates_[i].gateType_ == Gate::PPI)
 				{
 					// CK
-					extractedFaults_.push_back(Fault(i, Fault::SA0, -1, 1, Fault::DT));
-					extractedFaults_.push_back(Fault(i, Fault::SA1, -1, 1, Fault::DT));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA0, -1, 1, Fault::DT));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA1, -1, 1, Fault::DT));
 					// SE
-					extractedFaults_.push_back(Fault(i, Fault::SA0, -2, 1, Fault::DT));
-					extractedFaults_.push_back(Fault(i, Fault::SA1, -2, 1, Fault::DT));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA0, -2, 1, Fault::DT));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA1, -2, 1, Fault::DT));
 					// SI
-					extractedFaults_.push_back(Fault(i, Fault::SA0, -3, 1, Fault::DT));
-					extractedFaults_.push_back(Fault(i, Fault::SA1, -3, 1, Fault::DT));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA0, -3, 1, Fault::DT));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA1, -3, 1, Fault::DT));
 					// QN
-					extractedFaults_.push_back(Fault(i, Fault::SA0, -4, 1, Fault::UD));
-					extractedFaults_.push_back(Fault(i, Fault::SA1, -4, 1, Fault::UD));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA0, -4, 1, Fault::UD));
+					extractedFaults_temp_.push_back(Fault(i, Fault::SA1, -4, 1, Fault::UD));
 				}
 			}
 		}
@@ -227,20 +218,20 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 		for (int i = 0; i < (int)pCircuit->pNetlist_->getTop()->getNPort(); ++i)
 		{
 			IntfNs::Port *p = pCircuit->pNetlist_->getTop()->getPort(i);
-			if (!strcmp(p->name_, "CK") && fanMgrTYPE == (cut-1) ) // Sequential circuit
+			if (!strcmp(p->name_, "CK") ) // Sequential circuit
 			{
 				// CK
-				extractedFaults_.push_back(Fault(-1, Fault::SA0, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-1, Fault::SA1, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-1, Fault::SA0, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-1, Fault::SA1, 0, 1, Fault::DT));
 				// test_si
-				extractedFaults_.push_back(Fault(-2, Fault::SA0, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-2, Fault::SA1, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-2, Fault::SA0, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-2, Fault::SA1, 0, 1, Fault::DT));
 				// test_so
-				extractedFaults_.push_back(Fault(-3, Fault::SA0, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-3, Fault::SA1, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-3, Fault::SA0, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-3, Fault::SA1, 0, 1, Fault::DT));
 				// test_se
-				extractedFaults_.push_back(Fault(-4, Fault::SA0, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-4, Fault::SA1, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-4, Fault::SA0, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-4, Fault::SA1, 0, 1, Fault::DT));
 			}
 		}
 	}
@@ -296,8 +287,8 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 		}
 
 		// Extract faults.
-		extractedFaults_.resize(uncollapsedFaults_.size());
-		extractedFaults_.assign(uncollapsedFaults_.begin(), uncollapsedFaults_.end());
+		extractedFaults_temp_.resize(uncollapsedFaults_.size());
+		extractedFaults_temp_.assign(uncollapsedFaults_.begin(), uncollapsedFaults_.end());
 
 		// HYH try to fix the fault number @20141121.
 		for (int i = 0; i < (int)pCircuit->pNetlist_->getTop()->getNPort(); ++i)
@@ -306,19 +297,34 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 			if (!strcmp(p->name_, "CK")) // Sequential circuit
 			{
 				// CK
-				extractedFaults_.push_back(Fault(-1, Fault::STR, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-1, Fault::STF, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-1, Fault::STR, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-1, Fault::STF, 0, 1, Fault::DT));
 				// test_si
-				extractedFaults_.push_back(Fault(-2, Fault::STR, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-2, Fault::STF, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-2, Fault::STR, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-2, Fault::STF, 0, 1, Fault::DT));
 				// test_so
-				extractedFaults_.push_back(Fault(-3, Fault::STR, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-3, Fault::STF, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-3, Fault::STR, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-3, Fault::STF, 0, 1, Fault::DT));
 				// test_se
-				extractedFaults_.push_back(Fault(-4, Fault::STR, 0, 1, Fault::DT));
-				extractedFaults_.push_back(Fault(-4, Fault::STF, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-4, Fault::STR, 0, 1, Fault::DT));
+				extractedFaults_temp_.push_back(Fault(-4, Fault::STF, 0, 1, Fault::DT));
 			}
 		}
 	}
+	std::vector<Fault>::const_iterator begin,end;
+	int fault_size = extractedFaults_temp_.size();
+	
+	//initialize FaultList length 
+	if (fanMgrTYPE < cut-1){
+		begin = extractedFaults_temp_.begin() + (fault_size)/cut*fanMgrTYPE ; 
+		end = extractedFaults_temp_.begin() + (fault_size)/cut*(fanMgrTYPE + 1);
+	}else if(fanMgrTYPE == cut-1){
+		begin = extractedFaults_temp_.begin() + (fault_size)/cut*fanMgrTYPE ; 
+		end = extractedFaults_temp_.end() ;
+	}else{begin = extractedFaults_temp_.begin(); end = extractedFaults_temp_.begin();}
+
+	extractedFaults_.assign(begin, end);
+	
+			
 	// End of adding transition faults.
 }
