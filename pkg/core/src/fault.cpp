@@ -314,11 +314,10 @@ void FaultListExtract::extractFaultFromCircuit(Circuit *pCircuit, int fanMgrTYPE
 	std::vector<Fault>::const_iterator begin,end;
 	int fault_size = extractedFaults_temp_.size();
 	if(fault_size < 70000) *cut = 3;
-	if(fault_size >= 70000 && fault_size < 100000) *cut = 4;
-	if(fault_size >= 100000 && fault_size < 250000) *cut = 10;
-	if(fault_size >= 250000 && fault_size < 300000) *cut = 15;
-	if(fault_size >= 300000 && fault_size < 500000) *cut = 20;
-	if(fault_size >= 500000 ) *cut = 24;
+	if(fault_size >= 70000 && fault_size < 300000) *cut = 4;
+	if(fault_size >= 300000 && fault_size < 2000000) *cut = 10;
+	if(fault_size >= 2000000 && fault_size < 3000000) *cut = 7;
+	if(fault_size >= 3000000 ) *cut = 14;
 
 	//initialize FaultList length 
 	if (fanMgrTYPE < (*cut)-1){
